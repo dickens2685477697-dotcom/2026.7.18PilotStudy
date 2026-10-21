@@ -1,0 +1,48 @@
+Subject 1 input: D:\2026.7.18PilotStudy\1\Trigger
+Time files found: 15
+20260802-17-37-15: technique=dwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-17-41-00: technique=dwellRelease, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-18-13-27: technique=release010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-18-16-09: technique=time010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-18-22-59: technique=contact010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-10-12: technique=pinchReleaseTrigger, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-16-34: technique=pinchDwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-23-17: technique=pinchDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-27-24: technique=pinchThumbSwipe, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-32-40: technique=dwellDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-37-36: technique=speed, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-42-51: technique=speedDwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-47-20: technique=speedRelease, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-54-42: technique=direction010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-19-11-37: technique=speedDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+
+Subject 5 input: D:\2026.7.18PilotStudy\5\Trigger
+Time files found: 15
+20260829-14-28-01: technique=dwell, raw_rows=49, selected_48_rows=48, extra_excluded=1, status=PASS
+20260829-14-35-41: technique=dwellRelease, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-14-45-53: technique=dwellDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-10-10: technique=speed, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-17-11: technique=speedDwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-21-30: technique=speedRelease, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-27-21: technique=speedDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-34-54: technique=release010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-38-14: technique=time010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-45-41: technique=direction010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-15-50-09: technique=contact010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-22-48-13: technique=pinchReleaseTrigger, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-22-51-30: technique=pinchDwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-22-56-35: technique=pinchDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260829-22-59-05: technique=pinchThumbSwipe, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+
+===== Combined validation =====
+Selected 48-event rows: 1440 (expected 1440)
+Raw rows read before extra-row audit: Subject 1=720, Subject 5=721
+Selected rows by subject: Subject 1=720, Subject 5=720
+Extra raw rows excluded and audited: Subject 1=0, Subject 5=1
+Complete selected 48-event runs: 30/30
+Raw-48 Trigger failures: 338/1440 (23.5%)
+Formal-45 Trigger failures (Starting Ball excluded): 317/1350 (23.5%)
+Failure rule: in_target_times > 1 means failed; in_target_times <= 1 means successful.
+Combined estimates use equal subject weighting; error bars are sample SD between Subjects 1 and 5.
+Starting Balls are retained in the primary 48-event scope; no raw outlier removal was applied.
+This is Trigger-specific multi-entry failure, not Task Error Rate or Throughput.

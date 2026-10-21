@@ -1,0 +1,52 @@
+Subject 1 input: D:\2026.7.18PilotStudy\1\Trigger
+Time files found: 15
+20260802-17-37-15: technique=dwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-17-41-00: technique=dwellRelease, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-18-13-27: technique=release010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-18-16-09: technique=time010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260802-18-22-59: technique=contact010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-10-12: technique=pinchReleaseTrigger, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-16-34: technique=pinchDwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-23-17: technique=pinchDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-27-24: technique=pinchThumbSwipe, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-32-40: technique=dwellDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-37-36: technique=speed, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-42-51: technique=speedDwell, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-47-20: technique=speedRelease, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-17-54-42: technique=direction010, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+20260830-19-11-37: technique=speedDirection, raw_rows=48, selected_48_rows=48, extra_excluded=0, status=PASS
+
+Validation
+Expected trial rows: 15 x 3 x 16 = 720; actual=720
+Expected technique-by-ID rows: 15 x 3 = 45; actual=45
+Complete selected runs: 15/15
+Extra raw rows audited/excluded: 0
+Missing trial trajectories: 0
+Invalid Trigger Time values excluded: 0
+Failure rule: in_target_times > 1 means the Trigger trial failed; in_target_times <= 1 means successful.
+Raw-48 scope includes Starting Ball. Formal-45 values are retained only as a comparison.
+Raw-48 Trigger failures: 165/720 (22.9%)
+L-ID Trigger failures: 45/240 (18.8%)
+M-ID Trigger failures: 31/240 (12.9%)
+H-ID Trigger failures: 89/240 (37.1%)
+Formal-45 comparison: 151/675 (22.4%)
+ID plotting order: L-ID (2.713), M-ID (3.459), H-ID (4.605)
+No outlier removal was applied.
+Task Error Rate and Throughput were not calculated.
+This is a Trigger-specific multi-entry failure rate, not Task Error Rate.
+Technique acquisition order:
+01. pinchReleaseTrigger
+02. pinchDwell
+03. pinchDirection
+04. pinchThumbSwipe
+05. dwell
+06. dwellRelease
+07. dwellDirection
+08. speed
+09. speedDwell
+10. speedRelease
+11. speedDirection
+12. release010
+13. time010
+14. direction010
+15. contact010

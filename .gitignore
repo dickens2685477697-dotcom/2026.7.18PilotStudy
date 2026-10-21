@@ -1,0 +1,21 @@
+# Local Python environments and caches; experiment data and analysis outputs are kept.
+__pycache__/
+*.py[cod]
+/.venv/
+/venv/
+/analysis/_plot_deps/
+
+# Local runtime logs and operating-system metadata.
+/node.*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local credentials.
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+id_rsa
+id_ed25519

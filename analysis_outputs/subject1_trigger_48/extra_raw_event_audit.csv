@@ -1,0 +1,1 @@
+﻿subject_id,run_id,technique,case,logged_id_code,id_level,id_bits,layout_diameter_m,start_ball,ball_index,is_start_ball,position_within_id,in_target_times,trigger_failed,used_time_s,trigger_time_s,movement_distance_m,trajectory_sample_count,analysis_scope,raw_data_length,raw_row_json,extra_reason

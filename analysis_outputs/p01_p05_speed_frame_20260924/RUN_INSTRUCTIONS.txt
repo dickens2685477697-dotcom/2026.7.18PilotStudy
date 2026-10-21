@@ -1,0 +1,3 @@
+Run from the workspace root with the bundled Python:
+C:\\Users\\tangx\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe analysis\\p01_p05_speed_frame_analysis.py
+The script reads raw CSV files without modifying them and rewrites only this derived output directory.

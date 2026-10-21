@@ -1,0 +1,1 @@
+frame,time,case,id,mode,event,reason,ballIndex,ballKind,isMineBall,pending,isPinch,indexInBall,thumbInBall,triggeredBy,entryElapsed,poseValid,activateThresholdMeters,deactivateThresholdMeters,distanceMeters,distanceMillimeters,swipeContactValid,swipeContactDistanceMeters,swipeContactDistanceMillimeters,swipeContactThresholdMeters,indexX,indexY,indexZ,thumbX,thumbY,thumbZ

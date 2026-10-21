@@ -1,0 +1,20 @@
+{
+  "participants": [
+    "P01",
+    "P05"
+  ],
+  "speed_modes": [
+    "speed",
+    "speedDwell",
+    "speedRelease",
+    "speedDirection"
+  ],
+  "trial_count": 384,
+  "file_audit_count": 209,
+  "nominal_fixed_timestep_s": 0.02,
+  "speed_min_threshold_m_s": 0.067,
+  "speed_max_threshold_m_s": 0.375,
+  "position_unit": "meter",
+  "timestamp_limitation": "trajectory.csv contains no timestamp/frame; nominal frame metrics are not actual-timestamp estimates",
+  "inside_definition_limitation": "runtime AABB(tip OR distal) differs from requested spherical fingertip rho"
+}

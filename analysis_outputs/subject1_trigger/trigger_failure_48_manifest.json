@@ -1,0 +1,13 @@
+{
+  "subject_id": 1,
+  "input_dir": "D:\\2026.7.18PilotStudy\\1\\Trigger",
+  "output_dir": "D:\\2026.7.18PilotStudy\\analysis_outputs\\subject1_trigger",
+  "primary_scope": "raw_48_including_starting_ball",
+  "raw_48_rows": 720,
+  "raw_48_failure_n": 165,
+  "raw_48_failure_rate": 0.22916666666666666,
+  "formal_45_rows": 675,
+  "formal_45_failure_n": 151,
+  "formal_45_failure_rate": 0.2237037037037037,
+  "rule": "in_target_times > 1"
+}

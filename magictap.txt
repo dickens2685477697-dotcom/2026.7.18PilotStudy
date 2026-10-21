@@ -1,0 +1,1441 @@
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 1
+Magic-Tap: A Kinematics-Driven Virtual Hand
+Selection Technique in AR/VR
+Ruyang Yu, Yixuan Liu, Zijian Wu, and Tao Luo
+Abstract—This study explores the design of a selection tech-
+nique in virtual environments leveraging kinematic data derived
+from hand movements. We first identified the intrinsic challenges
+of virtual hand selection techniques, particularly in complex
+settings, including Accidental Selection , Slow Selection , Failed
+Selection, and Fragmented Selection . To mitigate these issues,
+we introduce Magic-Tap, a selection technique that ascertains
+the trigger of an object based on real-time variations in virtual
+hand acceleration and speed, seamlessly integrating the pointing
+and triggering processes without requiring explicit triggering
+signals. The parameter settings of Magic-Tap were fine-tuned
+through Study One, ameliorating its trigger rate, error rate, and
+trigger time. Furthermore, we compared Magic-Tap with three
+conventional virtual hand selection techniques (Touch, Dwell-
+Time, and Pinch) in Study Two. The results indicate that the
+task completion time of Magic-Tap is comparable to Touch in all
+situations while exhibiting an error rate as low as Dwell-Time
+and Pinch.
+Index Terms—Virtual hand interaction, Selection Techniques,
+Kinematics-Driven, AR/VR
+I. INTRODUCTION
+Object selection is a fundamental interaction in augmented
+and virtual reality, often serving as the initial step for various
+interactions [1]. Over the past three decades, HCI researchers
+have proposed numerous pointing facilitation techniques suit-
+able for different selection environments. The extensive body
+of work on object selection in 3D environments can be
+classified into two categories [2]: Virtual Hand (i.e., selection
+by direct touching) and Ray Casting (i.e., selection by virtual
+rays) metaphors. Both categories face difficulties when deal-
+ing with complex selection environments [3]. While current
+research primarily focuses on ray casting selection techniques
+[4], virtual hand selection techniques, considered to be the
+most natural and practical [5], have been scarcely explored in
+more complex selection settings.
+Virtual hand selection techniques have intrinsic challenges
+due to head-worn displays’ persistent tracking of the finger
+position. Conventionally, a selection is initiated when the
+virtual hand spatially aligns with the target, occurring either
+at the moment the virtual hand enters or exits the target
+area. Although intuitive, such selection methods may lead
+to the unintended activation of incorrect targets in complex
+environments [6], a phenomenon we term Accidental Selection
+(Figure 1a). To mitigate this issue, many researchers have
+utilized dwell as an implicit gesture for users to convey their
+R. Yu, Y. Liu, Z. Wu, and T. Luo are with the School of Design, Southern
+University of Science and Technology, Shenzhen, Guangdong, China. E-
+mail address: luot@sustech.edu.cn
+intent to trigger. While such mechanisms can notably reduce
+accidental selections, they may lead to prolonged trigger time
+[7], a phenomenon we refer to as Slow Selection (Figure 1b).
+Alternatively, incorporating explicit gestures as an additional
+triggering condition can minimize delay, but such techniques
+usually require binary confirmation (e.g., pinching [8] or
+circling [9]), which fragments the pointing and triggering
+processes of the selection—a phenomenon we refer to as
+Fragmented Selection (Figure 1c). Furthermore, adding either
+implicit or explicit conditions may lead to trigger failures if
+the conditions are not met due to minor errors or interruptions,
+necessitating a reattempt of the selection task. We refer to this
+as Failed Selection (Figure 1b and c).
+To address these challenges, we introduce Magic-Tap, a
+selection technique that utilizes real-time kinematic data vari-
+ations of the finger. Usually, the kinematic data of the finger
+significantly differs between intentional and unintentional se-
+lections (Figure 2), and Magic-Tap utilizes this difference to
+discern the user’s intent of selection. In Study One, we col-
+lected finger kinematic data during the selection process and
+utilized this data to calibrate the parameter settings of Magic-
+Tap, effectively alleviating the challenges mentioned earlier. In
+Study Two, we compared Magic-Tap’s performance with con-
+ventional virtual hand selection techniques, i.e., Touch, Dwell-
+Time, and Pinch. Our main contributions are: (1) We propose
+Magic-tap as an alternative selection technique that naturally
+integrates the pointing and triggering processes. The results of
+Study Two indicate that Magic-Tap can maintain a relatively
+short task completion time while ensuring a significantly low
+error rate. (2) We offered recommendations for optimizing
+Magic-Tap’s parameter configurations in various contexts.
+II. RELATED WORK
+We began by reviewing previous research on device-free
+selection techniques in AR/VR, narrowing our focus to the
+virtual hand metaphor and outlining its challenges. We then
+examined techniques using kinematic data to alleviate these
+challenges and proposed a viable approach. Finally, we dis-
+tilled important factors from earlier studies to inform the
+design of our technique.
+A. Device-free Target Selection in AR/VR
+Head-based, eye-based, and hand-based selection techniques
+are widely adopted by commercial head-mounted displays
+(HMDs) as standard methods for 3D interface interactions
+without extra hardware support [10]. However, different tech-
+niques vary in accuracy, speed, immersion, and usability. The
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 2
+Fig. 1. Three selection techniques—(a) Touch, (b) Dwell-Time, and (c) Pinch—are used to illustrate four challenges faced by traditional virtual hand selection
+techniques. In these examples, the blue ball represents intentional targets, the grey ball denotes unintentional objects, the red ball indicates unintentional
+objects mistakenly triggered, and the green ball signifies targets correctly activated.
+existing comparison [10], [11] between the input based on
+eye and head tracking shows that the head-based techniques
+can improve comfort and accuracy while reducing workload
+and learning time. Comparison of hand-based and head-
+based techniques [12], [13] showed that head-based tech-
+niques provided better accuracy, while hand-based techniques
+had faster response time, better overall performance, lower
+muscle fatigue, and better-perceived usability [14]. Eye-based
+techniques outperform hand-based techniques in speed [10],
+[15], especially for distant objects. However, the accuracy and
+ability to recall spatial information of eye-based techniques
+are inferior. Moreover, many researchers have combined two
+or more input methods to explore multi-modal interaction
+methods to enhance overall performance [10], [16]–[18]. In
+this study, we focus on a hand-based technique, aiming to
+improve its performance in specific task scenarios.
+B. Hand-based Selection Techniques
+Virtual hand and Ray Casting are two primary metaphors for
+hand-based selection techniques [19]. The classical implemen-
+tation of the virtual hand metaphor entails a direct mapping
+of the user’s hand movements to the motions of the virtual
+hand, capitalizing on the innate human familiarity with hand-
+based interactions in daily life. In the case of ray casting, users
+can select various objects by manipulating a designated ray
+emitted from the fingertip or wrist, facilitating the selection
+of distant objects. Feuchtner’s study [20] indicates that virtual
+pointing facilitates more effective and accurate selection than
+virtual hand. However, Yu [21] compared the metaphors of
+ray casting and virtual hand under different density levels and
+selection areas, arriving at a different conclusion. The results
+indicated that both metaphors offer similar performance and
+result in nearly identical error rates. In this context, we narrow
+our research focus to the virtual hand metaphor to enhance its
+performance.
+Although the virtual hand is promising, it lacks a cohesive
+mechanism for pointing and triggering selections [22]. In
+current applications, the spatial coupling of the virtual hand
+with the target is the most common triggering mechanism [23],
+praised for its intuitiveness and efficiency. Even so, compared
+to mouse movement, the throughput of virtual hand techniques
+remains lower ( 2.7bps vs. 4.2bps) while increasing the risk
+of Accidental Selections [24]. A common solution is adding
+dwell time, which triggers selection after a short pause ( 150-
+1500ms) over a target [25]. However, it experiences a trade-off
+between the duration of this pause (and overall target acquisi-
+tion times) and the incidence of Midas Touch, or unintentional
+target activations during exploration or natural pauses in mo-
+tion [26]. Some researchers have employed pinching [8], [27],
+drawing circles [9], and other gestures as explicit confirmation
+signals for triggering. While dwell time and additional gestures
+can reduce the risk of accidental selections, these disrupt the
+continuity of interaction, potentially leading to Slow Selection
+or Fragmented Selections. Dube et al. [7] further confirmed
+that dwell time (800ms) and pinch gestures result in reduced
+throughput, with values of 1.73bps and 2.09bps, respectively.
+Moreover, these mechanisms might induce the Heisenberg
+effect of Spatial Interaction [28], increasing the risk of Failed
+Selection. Therefore, we recognized that devising appropriate
+triggering mechanisms is pivotal in mitigating these challenges
+for a virtual hand selection technique.
+C. Utilizing Kinematic Data for Triggering Mechanisms
+Recently, many researchers [29]–[31] have delved into a
+promising technique through motion matching — targets move
+in regular patterns, and head or eye motions are correlated
+against these changes. A selection is triggered when a sim-
+ilarity threshold is exceeded. In the comparative study by
+Esteves et al. [9], it was noted that while motion matching
+strikes a balance between speed and accuracy, it also imposes
+behavioral constraints on users, requiring them to mimic
+motion trajectories passively rather than interact naturally with
+the target.
+Moreover, kinematic data provided valuable information for
+Endpoint and Target Prediction. Researchers used Kinematic
+Template Matching (KTM) [32], [33], Regression-Based Ex-
+trapolation [34], and Classical Kinematics [35] methods to
+predict the future locations or potential targets when pointing.
+These efforts have made significant contributions to improving
+pointing efficiency and reducing accidental activation during
+the process. However, human intent inherently contains uncer-
+tainty and variability [36], significantly affecting the alignment
+between past actions and final decisions [37]. This leaves
+substantial room for research into identifying the appropriate
+timing for final activation. Therefore, we aim to explore the in-
+tegration of unique kinematic data features of the virtual hand
+into the real-time triggering mechanism to better determine
+activation.
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 3
+Fig. 2. (a) Finger swiftly pointing, followed by three potential gesture classifications: (b) Deliberate Selection, where the finger slows down and halts after
+entering the intentional target. (c) Glide-past, where the finger quickly passes through the unintentional object without the intent to trigger, which differs from
+the Crossing technique [41] (d) Snap-back, where the finger swiftly retracts after entering the unintentional object. The blue ball represents the intentional
+targets; the grey ball denotes the unintentional objects.
+Fig. 3. (a) The algorithm initiates once the fingertip enters the target. (b) The Pre-trigger is activated when the fingertip’s acceleration or speed reaches the
+designated threshold ( α and β), consequently toggling the Switch State (SS) to ON and resetting the Update Timer (UT) to 0s before commencing the timing.
+(c) If the fingertip’s speed surpasses the specified threshold ( γ) within a very short window (configured to 0.06s due to the 50-Hz refresh rate of Oculus
+Quest Pro), the Pre-trigger is deactivated, and the Switch State reverts to OFF. Otherwise, the target will be successfully triggered. Importantly, a failed initial
+attempt does not necessitate the finger’s re-entry into the target to initiate a trigger since Trigger Method 1 and 2 persist in assessing the user’s intent.
+D. Important Factors
+To develop an intuitive and efficient virtual hand selection
+technique, it is essential to distill the Important Factors
+from previous research on object selection in AR/VR [2]:
+(F1) Seamlessness: the technique should facilitate a seamless
+transition from pointing to confirming the selection, mirroring
+natural selection behavior to prevent Fragmented Selection
+[38]; (F2) Easy-to-trigger : the primary concern during the
+selection task should be the ease of triggering to minimize
+Failed Selection [39]; (F3) Error-proofing: a cancellation or
+prevention mechanism should be in place, allowing users to
+promptly cancel or prevent the triggering process in cases of
+unintentional selection or ambiguous intent, avoiding Acciden-
+tal Selection [7]; (F4) Temporal Efficiency: when successfully
+triggering a selection, the technique should efficiently trigger
+the selection, avoiding Slow Selection [2]; (F5) Workload: the
+technique should minimize the mental and physical burden on
+users, especially in continuous selection tasks [2].
+III. MAGIC-TAP
+We first outlined the target applications for Magic-Tap.
+Then, we introduced the design of Magic-Tap and detailed
+its algorithm in Figure 3. The code is openly available at [40].
+A. Target Applications
+Our exploration of selection techniques is geared towards
+typical AR/VR applications, such as immersive virtual cock-
+pits [3]. These applications necessitate swift and accurate
+selection of virtual or real objects using a virtual or real
+hand. Furthermore, many applications, such as interactive data
+visualization or on-site CAD, may require the selection of
+a specific target within a fully immersive, relatively dense,
+and complex environment. The options for selection in these
+applications are typically situated within arm’s reach or at
+locations accessible through short movements. Additionally,
+to comply with the principles of user-friendly interfaces, these
+options generally do not overlap or obscure each other in the
+line of sight. Given that the virtual hand is not well-suited for
+operation in occluded environments [21], we temporarily do
+not consider such scenarios in this study.
+B. Technique Design
+Utilizing Kinematic Data. We use the index fingertip (as
+shown in Figure 2a) as a triggering device for our technique,
+widely regarded as the most intuitive instrument [42]. Two
+types of kinematic data, namely speed (indicative of magnitude
+without direction) and acceleration are extracted in three
+dimensions (x, y, and z) from existing HMDs that support hand
+tracking [43], [44]. Speed, the magnitude of the first derivative
+of position with respect to time, displays a stable trend, mak-
+ing it suitable for more deliberate indications. Acceleration,
+describing how quickly speed increases or decreases, serves
+as an earlier and more sensitive indicator of finger motion.
+Consequently, by merging the sensitivity of acceleration with
+the stability of speed, we formulated a selection mechanism:
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 4
+utilizing finger acceleration for Pre-trigger activation and
+speed for Pre-trigger cancellation. Employing this foundation
+for Magic-Tap’s trigger mechanism could reduce activation
+time and enhance the precision of the mechanism’s decision-
+making process [45].
+Triggering Methods. Trigger Method 1 constitutes the
+central triggering mechanism of Magic-Tap. Generally, a sig-
+nificant deceleration of the finger (i.e., acceleration is less
+than 0) within the target signals a genuine intent to trigger
+the target (an example is shown in Figure 2b). Therefore,
+when the finger acceleration (FA) drops below α, Trigger
+Method 1 activate Pre-trigger (as seen in Figure 3b). This
+method could effectively prevent accidental selections caused
+by Glide-past gestures (refer to Figure 2c). Trigger Method
+2 is a supplementary triggering mechanism for Magic-Tap.
+If the user’s finger enters an object at a very slow speed
+and remains inside, the fluctuation of acceleration might be
+minimal, making Trigger Method 1 unreliable. To address this
+issue, Trigger Method 2 activates the Pre-trigger when the
+finger speed (FS) falls below β, indicative of a near stationary
+state (refer to Figure 3b).
+Cancellation Mechanism. We observed that in some cases,
+users quickly retract their fingers upon realizing they’ve en-
+tered the wrong object (Figure 2d). Although this pattern
+typically indicates an unintentional selection, the deceleration
+data upon finger entry unexpectedly meets the thresholds for
+both Trigger Method 1 and Trigger Method 2 , potentially
+leading to false triggers. Therefore, we integrated a Pre-trigger
+containing two functional modules: Switch State (SS) and
+Update Timer (UT) (Figure 3c) to cancel activation caused
+by the Snap-back gesture in time. The complete algorithm for
+Magic-Tap can be found in Figure 3.
+IV. STUDY ONE: CALIBRATING MAGIC-TAP
+Fine-tuning the parameters is crucial for optimal perfor-
+mance. Initially, we gathered kinematic data through Exper-
+iment 1 to establish a reasonable testing range for pertinent
+parameters. Subsequently, we evaluated user performance and
+satisfaction in Experiment 2 to pinpoint the most harmonious
+combination of parameters, which would later serve as a
+benchmark compared with traditional techniques.
+A. Experiment 1: Collecting Kinematic Data
+1) Participants and Apparatus: Through social media, we
+recruited 15 participants (7 females, 8 males, mean age 24.8
+years, SD=4.021) with multidisciplinary backgrounds (includ-
+ing intelligent manufacturing, materials, chemical engineering,
+computer science, design, etc.) from local universities. Among
+them, 8 participants were considered experts, with an average
+of more than 5 hours of AR/VR usage per week, while the
+remaining 7 participants were novices with no prior AR/VR
+experience. The selection criteria for participants included
+AR/VR experience, no motor disabilities, and their vision had
+to be either normal or corrected to normal. All participants
+were right-handed and used their dominant hand for testing.
+They remained seated throughout the task (Figure 4b). Partic-
+ipants were paid about 10 dollars per hour.
+The experiment used the Oculus Quest Pro HMD, with
+a resolution of 1800 × 1920 per eye. The HMD’s built-in
+cameras enabled 6 degrees of freedom (DoF) hand tracking
+and finger configuration. The hand used an absolute mapping
+to control the virtual hand for input and selection. The
+system ran on a laptop with an i9-13900HX processor and
+an NVIDIA RTX4060 graphics card and was developed in
+Unity3D (version 2020.3.37f1c1). The HMD was connected
+to the laptop during the experiment, and participants’ experi-
+mental processes were monitored in real-time via Quest Link.
+2) Design, Task, and Procedure: We aimed to collect and
+analyze the kinematic data of the participant’s index fingertip
+during natural clicking actions across three stages: (1) Entry
+Stage: characterized by the fluctuation threshold of the fin-
+ger deceleration upon entering the target; (2) Halting Stage :
+wherein the device presents kinematic data corresponding to
+a stationary finger; and (3) Departure Stage: marked by the
+acceleration data as the finger withdraws from the target.
+Before the formal experiment, participants were required
+to attend a 15-minute training session. In the experiment,
+participants were directed to click a blue ball (with a diameter
+of 60mm) 530mm away (the comfortable clicking distance
+calculated as 0.736 times the average arm length [46]). The
+ball’s transparency decreased upon the finger’s entry, serving
+as visual feedback. Participants were then instructed to hold
+their finger steady for 3 seconds before being prompted to
+withdraw. This process (Figure 4a) was repeated 10 times,
+with the entire experiment lasting approximately 25 minutes
+for each participant.
+3) Result: Upon examining the data, we observed that dur-
+ing the Halting Stage, the acceleration (Figure 4c) and speed
+(Figure 4d) values typically remain below 3 m/s2 and 0.1 m/s,
+respectively. We used these values as the criteria to segment
+different stages. Subsequently, we used the interquartile range
+method to remove outliers. In total, we collected 1, 137 data
+points in the Entry Stage (with a 7% outlier removal rate),
+22, 050 data points in the Halting Stage (with a 5.8% outlier
+removal rate), and 458 data points in the Departure Stage (with
+a 3% outlier removal rate). We compiled statistics on both
+speed and acceleration for each stage, categorizing the data
+into three types: Peak Average, Trough Average, and Overall
+Average, and details can be found in Table I .
+Based on the mechanism of Magic-Tap, we considered the
+Trough Average of acceleration during the Entry Stage as
+the Acceleration reference value for Trigger method 1 (i.e.,
+−10.007m/s2 as α value). This value indicates the user’s
+intention to remain within the target, distinguishing it from
+the Glide-past gesture. The Overall Average of speed during
+the Departure Stage was taken as the Exit Speed reference
+value of Cancellation Mechanism (i.e., 0.339m/s as γ value),
+facilitating an earlier detection of cancellation intentions com-
+pared to utilizing the Average Peak speed. Moreover, we
+detected noise in both acceleration and speed during the
+Halting Stage (Figure 4c and d), which was also considered
+in the subsequent parameter configuration to enhance the
+technique’s performance.
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 5
+Fig. 4. (a) Display of Experiment 1 tasks and sampling annotations for different stages. (b) Participant’s status and experimental environment setup during
+task execution. (c-d) Line charts showing acceleration and speed statistics from 150 selection actions.
+TABLE I
+THE STATISTICAL RESULTS OF THE KINEMATIC DATA COLLECTED IN EXPERIMENT 1.
+Acceleration Entry Stage (m/s 2) Halting Stage (m/s 2) Departure Stage (m/s 2)
+Peak Average 5.613 (SD=4.281) -0.611 (SD=0.478) 13.611 (SD=5.271)
+Trough Average -10.007 (SD=6.628) -0.753 (SD=0.683) -3.463 (SD=3.328)
+Overall Average -2.800 (SD=15.399) -0.025 (SD=1.117) 5.471 (SD=10.503)
+Speed Entry Stage (m/s) Halting Stage (m/s) Departure Stage (m/s)
+Peak Average 0.313 (SD=0.158) 0.027 (SD=0.011) 0.443 (SD=0.130)
+Trough Average 0.130 (SD=0.087) 0.011 (SD=0.006) 0.192(SD=0.065)
+Overall Average 0.299 (SD=0.292) 0.022 (SD=0.018) 0.339 (SD=0.190)
+B. Experiment 2: Identifying Appropriate Configurations for
+Magic-Tap
+1) Participants and Apparatus: We recruited 15 partici-
+pants (4 females, 11 males, mean age 25.2 years, SD=3.668).
+8 were considered experts, and 7 were novices. Notably, due
+to our strict requirement for experts, the 6 experts in this
+experiment were the same as in Experiment 1, with all novices
+being new to our studies. All participants were right-handed,
+used their dominant hand for testing, and remained seated
+throughout the task. The recruitment channels, selection crite-
+ria, AR/VR experience criteria for participants, compensation,
+and apparatus were consistent with Experiment 1.
+2) Design: We employed a 3 × 3 within-subjects design
+with two independent variables: Acceleration ( −3.352m/s2,
+−6.680m/s2, −10.007m/s2) and Exit Speed ( 0.128m/s,
+0.233m/s, 0.339m/s), resulting in 9 unique combinations.
+These values were based on reference data from Experiment 1
+(with α = −10.007m/s2 and γ = 0.339m/s). To reduce noise
+effects, we selected three equally spaced data points between
+these reference values and the overall average acceleration
+and speed observed in the Halting Stage. These combinations
+were assigned to 9 blue balls serving as trigger conditions,
+positioned 537mm away from participants. We also provided
+auditory feedback and color-changing balls as visual feedback
+for triggering (Figure 5a). In the pilot study, we found Trigger
+Method 2 consistently ensured successful activation but was
+always slower than Trigger Method 1 (the central triggering
+mechanism). Therefore, this experiment honed in exploring the
+synergistic impact of the central triggering and cancellation
+mechanisms and excluded Trigger Method 2 as it would
+interfere with the interpretability of the experimental data.
+3) Task and Procedure: Participants were required to use
+three gestures ( Deliberate Selection , Glide-past, and Snap-
+back as shown in Figure 2) to test 9 combinations. The
+experiment consisted of four rounds. In the initial round,
+participants exclusively used the Deliberate Selection gesture
+to trigger the balls, assessing the likelihood of Failed Selection
+and Slow Selection with different combinations. We tracked
+the Trigger Rate (total times of trigger / total times of finger
+entering balls) and Trigger Time (from the finger entering
+the balls until successful triggering). In the subsequent two
+rounds, aimed at assessing the risk of accidental selections,
+participants were asked to perform Glide-past and Snap-back
+gestures, respectively. We tracked the Error Rate (total times
+of accidental trigger / total times of finger entering balls). In
+the final round, participants could conduct a comprehensive
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 6
+Fig. 5. (a) 9 blue balls were presented simultaneously to participants and uniformly distributed in a semicircle. Participants were instructed to test them from
+right to left. Successful triggering of blue balls would cause the ball above to change color as visual feedback. (b) Samples of the scoreboards for the four
+rounds are shown on the right side. Participants verbally reported their subjective satisfaction ratings (scale from 1 to 7) for each target. The experimenter
+then logged these scores in real-time at the ‘*’ marks, allowing participants to review and modify them if necessary.
+Fig. 6. Bar chart of performance metric: (a-b) mean Trigger Rate and mean Trigger Time in the first round (higher rates and shorter time are better),
+(c-d) Error Rate (Glide-past) and Error Rate (Snap-back) in the second and third rounds respectively (lower rates are better). (e-h) Bar chart of satisfaction
+evaluation in the four rounds (higher scores are better). Error bars depict standard errors. The statistically significant differences are marked as connecting
+lines (***=p<0.001, **=p<0.01, and *=p <0.05).
+performance test based on their initial impressions from the
+first three rounds. They were allowed to use all three gestures
+but should maintain an equal number of attempts for each
+gesture. This round prioritized the collection of subjective
+satisfaction ratings over performance metrics. For each round,
+participants articulated their satisfaction scores orally to avoid
+distraction, detailed in (Figure 5b).
+Notably, the summative nature of the final round for as-
+sessing the Overall Performance necessitates it to be the
+last, and the order of four rounds remained unbalanced. To
+counter potential biases from arm fatigue and cumulative expe-
+rience, a mandatory 10-minute intermission was instituted after
+each round. Furthermore, the testing order of 9 combinations
+was counterbalanced among participants. Meanwhile, since
+finger movement speed significantly influences Magic-Tap’s
+performance in various contexts, participants were required
+to perform gesture tests at fast, medium, and slow speeds
+for each target in each round. We also provided participants
+with examples for reference, such as for a fast Glide-past
+gesture, participants were advised to imagine accidentally
+passing through an obstacle while aiming for a target.
+Due to trials at multiple speeds, participants were instructed
+to trial each combination at least 20 times per round, proceed-
+ing until reaching a subjectively reliable conclusion (post-hoc
+analysis revealed an average of 37.2 trials per combination per
+round). The formal experiment lasted about 50 minutes for
+each participant. In total, we collected 20, 089 experimental
+data points (= 15 Participants × 9 Combinations × 4 Rounds
+× 37.2 Repetitions).
+4) Result: We first identified and removed outliers where
+Trigger Rate, Trigger Time, two Error Rates (Glide-past and
+Snap-back), and satisfaction scores exceeded M ± 3 · SD [17]
+in each condition ( 7 trials, ≈ 0.6%). We performed an RM-
+ANOV A with acceleration and speed levels as independent
+variables. If Mauchly’s test indicated a violation of sphericity,
+Greenhouse-Geisser corrections were applied. The Bonferroni
+correction was used for pairwise comparisons. For non-normal
+data (evidenced by Shapiro-Wilk tests and visual inspections),
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 7
+we applied an Aligned Rank Transformation (ART) before
+RM-ANOV A and used the ART-C [47] procedure for pairwise
+comparisons with Bonferroni correction.
+Trigger Rate. In the first round, the result of RM-ANOV A
+revealed significant main effects of Acceleration ( F (2, 28) =
+227.739, p < 0.001, η2
+p = 0.942) and Exit Speed ( F (2, 28) =
+266.232, p < 0.001, η2
+p = 0 .950) on the Trigger Rate . An
+interaction effect between Acceleration and Exit Speed was
+also found ( F (4, 56) = 49 .722, p < 0.001, η2
+p = 0 .780). Post
+hoc tests highlighted significant differences, as depicted in
+Figure 6a, indicating that employing Acceleration closer to
+zero (e.g., α = −3m/s2 or −6m/s2) as leads to higher Trigger
+Rates. With the same Acceleration, the higher the Exit Speed,
+the higher the Trigger Rate.
+Trigger Time. In the first round, Acceleration
+(F (1.259, 15.110) = 0 .611, p > 0.05, η2
+p = 0 .048) had
+no significant main effect on Trigger Time, while Exit
+Speed ( F (1.174, 14.093) = 66 .370, p < 0.001, η2
+p = 0 .847)
+significantly influenced it. No interaction effect was detected
+between the two. Post hoc tests (Figure 6b) showed that with
+constant Acceleration, the higher Exit Speed resulted in a
+shorter Trigger Time.
+Error Rate. In the second round, no significant main effects
+of Acceleration ( F (2, 104) = 1 .000, P > 0.05, η2
+p = 0 .019)
+and Exit Speed (F (2, 104) = 33 .651, P < 0.001, η2
+p = 0.393)
+on the Error Rate were observed, with no interaction between
+them. Error Rate ( Glide-past) for all parameter combinations
+reached a notably low level ( M = 0.042, SD = 0.093). Post
+hoc tests (Figure 6c) showed that a lower Exit Speed resulted
+in a lower Error Rate ( Glide-past).
+In the third round, no significant main effect of Acceleration
+on the Error Rate ( F (1.298, 18.170) = 3 .161, P > 0.05,
+η2
+p = 0 .184). In contrast, Exit Speed ( F (2, 28) = 72 .463,
+P < 0.001, η2
+p = 0 .838) had a significant main effect on the
+Error Rate ( Snap-back), with no significant interaction effect
+between them. Post hoc tests (Figure 6d) revealed a pattern
+consistent with the second round, where a lower Exit Speed
+resulted in a lower Error Rate ( Snap-back).
+Subjective Satisfactions. In the first round, both Acceler-
+ation ( F (2, 112) = 96 .712, P < 0.001, η2
+p = 0 .633) and
+Exit Speed ( F (2, 112) = 193 .549, P < 0.001, η2
+p = 0 .776)
+demonstrated significant main effects on Trigger Rate &
+Trigger Time Satisfaction, with an observed interaction effect
+between them ( F (4, 112) = 12 .117, P < 0.001, η2
+p = 0.302).
+Post hoc analysis, as depicted in (Figure 6e), indicated that
+satisfaction levels increased alongside higher Trigger Rates
+and shorter Trigger Time.
+In the second round, Acceleration ( F (2, 112) = 2 .482,
+P > 0.05, η2
+p = 0 .042) had no significant main effect on
+the Error Rate Satisfaction (Glide-past) , while Exit Speed
+(F (2, 112) = 21 .798, P < 0.001, η2
+p = 0 .280) showed a
+significant effect, with no interaction effect. In post hoc tests
+(Figure 6f), lower Error Rate ( Glide-past) were associated
+with higher satisfaction. In the third round, while Acceleration
+didn’t significantly influence Error Rate Satisfaction (Snap-
+back) (F (2, 28) = 0 .537, P > 0.05, η2
+p = 0.037), Exit Speed
+(F (2, 28) = 46 .730, P < 0.001, η2
+p = 0.769) had a significant
+main effect on the Error Rate Satisfaction (Snap-back). No
+significant interaction effect was found. Post hoc tests (Figure
+6g) showed that the higher Error Rate (Snap-back) caused by
+the increased Exit Speed indirectly resulted in participants’
+dissatisfaction with this type of error.
+In the fourth round, Accelerations ( F (2, 28) = 42 .553,
+P < 0.001, η2
+p = 0.752) and Exit Speed ( F (1.279, 17.908) =
+8.640, P < 0.01, η2
+p = 0 .382) had significant main effect
+on the Overall Satisfaction . An interaction effect between
+Acceleration and Exit Speed was also found ( F (4, 56) =
+18.756, P < 0.001, η2
+p = 0 .573). Post hoc tests (Figure 6h)
+showed that users preferred the combinations closest to zero
+Acceleration and the smallest Exit Speed.
+The Chosen Combination. Based on participants’ evalua-
+tions of overall performance satisfaction, the combination of
+−3 × 0.1 is more favored by all. Although it exhibits a longer
+trigger time compared to other combinations, it achieved an
+excellent level in Trigger Rate and two Error Rates (Glide-
+past and Snap-back). Consequently, we used this parameter
+combination to configure Trigger Method 1 of Magic-Tap. For
+the subsequent experiment, we additionally enabled Trigger
+Method 2 , allowing Magic-Tap to reach its full potential by
+setting β to the average speed value of the Halting Stage
+(β = 0.022m/s).
+V. STUDY TWO: COMPARING MAGIC-TAP’S
+PERFORMANCE WITH CONVENTIONAL
+SELECTION TECHNIQUES
+As previously defined, we concentrate on device-free vir-
+tual hand selection techniques. We selected three mainstream
+Virtual Hand selection techniques in current AR/VR devices
+[43], [44] for comparison with Magic-Tap, including Touch,
+Dwell-Time, and Pinch. The key distinction between them is
+their unique triggering mechanisms. Touch solely relies on the
+spatial coupling between the finger and the target. Dwell-Time
+builds upon spatial coupling by adding a fixed dwell time
+for error-proofing. Pinch involves aligning the target object
+with the pinch point created by the thumb and index finger.
+This study aimed to evaluate the performance and differences
+between Magic-Tap and these techniques.
+A. Participants and Apparatus
+We recruited 20 participants (10 females, 10 males, mean
+age 25.4 years, SD=2.088). 8 were considered experts, 12
+were novices, and all participants had not been involved in
+our previous experiments. All participants were right-handed,
+used their dominant hand for testing, and remained seated
+throughout the task. The recruitment channels, selection crite-
+ria, AR/VR experience criteria for participants, compensation,
+and apparatus were consistent with those used in Study One.
+B. Design
+We used a 4 × 3 within-subjects design, with four Selection
+Techniques (Touch, Dwell-Time, Pinch, and Magic-Tap) and
+three Indices of Difficulty (H-ID, M-ID, L-ID, related to the
+target size and distance) as the two independent variables. The
+target selection task was designed based on the ISO 9241-411
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 8
+Fig. 7. (a) Displays the layout for Experiment 3, where red balls signify all potential targets. (b) shows the participant’s view, and the red ball is the Starting
+Ball. (c) illustrates that upon triggering a red ball, it turns green, and the next red target ball immediately appears, a pattern that continues until the end of
+the experiment. (d) demonstrates the effect of triggering an obstacle ball, where a yellow ball reverts to a blue ball after 1 second.
+standard [48], with 16 spherical targets arranged in circular
+layouts as the multi-directional selection task. We used three
+target sizes (W =30mm, 60mm, 90mm) and three circular lay-
+out diameters ( D=500mm, 600mm, 700mm), pairing them
+to form three distinct Index of Difficulty (ID) combinations:
+30mm × 700mm (H-ID), 60mm × 600mm (M-ID), and
+90mm × 500mm (L-ID), with respective IDs of 4.605bits,
+3.459bits, and 2.713bits, calculated using Equation (1).
+ID = log 2
+ D
+W + 1
+
+(1)
+To create a complex selection environment, we added dis-
+tractors outside the 16 spherical targets. We used a Distractor
+Density (DD) of 0.5 (the density is midway between no
+distractors and fully tiled distractors) [49], [50] to balance the
+number of distractors between two targets in different ID tasks.
+Based on this, we calculated the distance between obstacles to
+set the minimum for Poisson disk sampling, randomly placing
+3D obstacles in a 1000mm×1000mm×300mm space (Figure
+7a), 537mm from participants. The distractor positions were
+reset in every trial depending on the new start and goal target
+locations to maintain a balanced impact of distractors on every
+pointing and triggering.
+Regarding parameter configuration, we configured 0.5 sec-
+onds for Dwell-Time through two experiments (refer to the
+Appendix for details). Due to the inability to directly utilize
+Quest Pro’s native Pinch feature, we employed the Pinch
+configuration from Leap Motion [51], where a Pinch gesture
+is recognized when the distance between the thumb and index
+finger decreases to below 20mm, and is exited when the
+distance exceeds 50mm (continuous pinching during pointing
+is not allowed to prevent accidental activation). For Magic-Tap,
+we configured it with a parameter combination of −3 × 0.1.
+Regarding interaction feedback for the four techniques, we
+aimed to ensure fairness and balance across all techniques.
+This effort included visual feedback, wherein the opacity of
+targets would shift between 20% and 100% as fingers entered
+or exited their proximity, and auditory feedback, wherein
+distinct sounds were used to indicate the triggering of targets
+or obstacles.
+C. Task and Procedure
+We first introduced subjects to the experimental task and
+how the technique would be used and provided training on a
+similar prototype (about 15 minutes). To mitigate bias from
+cumulative experimental experience and variations in target
+search time, we pre-informed participants about target distri-
+bution and occurrence patterns and provided a brief retraining
+before testing each technique. After the official start of the
+experiment, 16 red balls were presented to the participants in
+a sequence (consistent with the ISO 9241-411 standard [48]),
+along with corresponding obstacles, as shown in Figure 7b.
+Among them, the first red ball in each task is considered the
+Starting Ball, and the system begins recording data only after
+it is triggered. Correctly triggering a red ball would change
+it to green (Figure 7c), while mistakenly triggering a blue
+ball (obstacle) would turn it yellow (Figure 7d). The order of
+the four selection techniques, ID tasks, and the starting ball
+position were counterbalanced.
+We recorded Task Completion Time (from activating the
+Starting Ball to triggering the last red ball), Task Error Rate
+(number of incorrect triggers of blue balls / 15 target balls),
+Throughput, Movement Distance of the fingertip, and Trigger
+Time of Magic-Tap as dependent variables. After complet-
+ing all tasks with each technique, participants completed
+the NASA-TLX and USER EXPERIENCE QUESTIONNAIRE ,
+followed by a 5-minute semi-structured interview and asked
+participants to rank the techniques based on their overall
+preference. Each participant’s experiment lasted approximately
+60 minutes. In total, the number of target selections was 3600
+(= 20 Participants × 4 Selection Techniques × 3 IDs × 15
+Target Selections).
+D. Result
+We first identified and removed outliers that exceeded M ±
+3 · SD in each condition ( 7 trials, ≈ 0.38%). We conducted an
+RM-ANOV A for different techniques and IDs as independent
+variables. We applied the Greenhouse-Geisser correction when
+sphericity was violated. The Bonferroni correction was used
+for pairwise comparisons. For non-normal data (evidenced by
+Shapiro-Wilk tests and visual inspections), we applied ART
+before RM-ANOV A and used the ART-C [47] procedure for
+pairwise comparisons with Bonferroni correction.
+Task Error Rate. Analysis revealed significant effects of
+selection techniques ( F (3, 187.181) = 489 .929, P < 0.001,
+η2
+p = 0 .887) and IDs ( F (2, 187.128) = 58 .045, P < 0.001,
+η2
+p = 0.383) on Error Rates, with an interaction effect between
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 9
+Fig. 8. (a) bar chart of mean task Error Rate (lower rates are better), (b) bar chart of mean Task Completion Time in seconds (shorter time is better), (c)
+bar chart of mean Throughput of each task (higher are better), and (d) bar chart of mean Movement Distance of each task (shorter distances are better). (e)
+represents the statistic on the Trigger Time of Magic-Tap across different ID tasks. The statistically significant differences are marked as connecting lines
+(***=p<0.001, **=p<0.01 and *=p <0.05).
+Fig. 9. (a) The mean corresponds to the attributes of the NASA-TLX Questionnaire (lower scores are better), and (b) the mean corresponds to the attributes
+of the User Experience Questionnaire (higher scores are better). (c) The preference ranking for the four techniques among users is represented by the numbers
+on the bar. The statistically significant differences are marked as connecting lines (***=p <0.001, **=p<0.01 and *=p <0.05)
+technique and IDs (F (6, 187.138) = 14 .814, P < 0.001, η2
+p =
+0.322) also observed, detailed in Figure 8a. Magic-Tap, Dwell-
+Time, and Pinch exhibited comparably low Error Rates, while
+Touch’s Error Rate was notably higher.
+Task Completion Time. Significant main effects were
+found for techniques (F (2.081, 39.547) = 29 .060, P < 0.001,
+η2
+p = 0 .605) and IDs ( F (2, 38) = 358 .348, P < 0.001, η2
+p =
+0.950), with an interaction effect between technique and IDs
+(F (3.342, 63.490) = 6 .861, P < 0.001, η2
+p = 0.265). Post hoc
+analysis (Figure 8b) indicated Magic-Tap and Touch achieved
+significantly lower Task Completion Time than Dwell-Time
+and Pinch, without significant differences between them.
+Throughput. Different techniques ( F (2.219, 42.169) =
+14.773, P < 0.001, η2
+p = 0 .437) and IDs ( F (2, 38) =
+23.989, P < 0.001, η2
+p = 0 .558) had significant main
+effects on Throughput. An interaction effect was also found
+(F (6, 114) = 3 .015, P < 0.01, η2
+p = 0 .137). Post hoc tests
+(Figure 8c) showed that no difference in Throughput was
+detected between Magic-Tap and Touch across all tasks, and
+both were significantly higher than Dwell-Time and Pinch in
+H-ID and M-ID tasks. No differences in Throughput were
+detected among the four techniques in the L-ID tasks.
+Movement Distance. Analysis showed significant main
+effects of techniques (F (1.493, 25.385) = 14 .779, P < 0.001,
+η2
+p = 0 .465) and IDs ( F (1.490, 25.335) = 428 .015, P <
+0.001, η2
+p = 0.962) on movement distance, with no interaction
+effect detected. Significant differences are summarized in
+Figure 8d. Post hoc tests revealed that Magic-Tap led to
+significantly shorter finger movement distances than Touch and
+Pinch, with no discernible difference from Dwell-Time.
+Trigger time of Magic-Tap. The study revealed significant
+effects of IDs on the Trigger time of Magic-Tap ( F (2, 38) =
+107.331, P < 0.001, η2
+p = 0 .850), with post hoc analysis
+(Figure 8e) indicating that the Trigger Time of Magic-Tap
+increased as the task ID decreased.
+Task Load. Results from the NASA-TLX Questionnaire
+showed differences in perceived task load between techniques,
+with significant effects for all attributes. The results from RM-
+ANOV A were as follows: F Mental (3, 54) = 3 .750, p < 0.05,
+η2
+p = 0 .172; F Physical (3, 54) = 10 .923, p < 0.001, η2
+p =
+0.378; F Temporal (2.133, 38.387) = 14 .825, p < 0.001, η2
+p =
+0.452; F Performance (3, 54) = 10 .968, p < 0.001, η2
+p = 0 .379;
+F Effort (3, 54) = 6 .747, p < 0.001, η2
+p = 0 .273; F Frustration
+(1.838, 33.091) = 12 .159, p < 0.001, η2
+p = 0.403. The results
+from pairwise comparisons between techniques can be seen in
+Figure 9a. Magic-Tap had the lowest task load for all attributes.
+User Experience. RM-ANOV A results indicated that tech-
+niques had a significant impact on all attributes except Per-
+spicuity. The results were as follows: F Attractiveness (3, 57) =
+11.484, p < 0.001, η2
+p = 0 .377; F Efficiency (3, 57) = 15 .259,
+p < 0.001, η2
+p = 0 .445; F Perspicuity(3, 57) = 2 .627, p > 0.05,
+η2
+p = 0 .121; F Dependability (3, 57) = 19 .646, p < 0.001,
+η2
+p = 0 .508; F Learnability (3, 57) = 11 .773, p < 0.001, η2
+p =
+0.383; F Novelty (3, 57) = 20 .207, p < 0.001, η2
+p = 0 .515;
+F Overall (3, 57) = 19 .528, p < 0.001, η2
+p = 0 .507. The
+results from pairwise comparisons between techniques can be
+seen in Figure 9b. The overall evaluation of Magic-Tap was
+significantly higher than Touch, Dwell-Time, and Pinch, with
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 10
+no significant differences among the latter three.
+Qualitative Feedback. The user preference ranking is dis-
+played in Figure 9c. Among the participants, 80% (N= 16)
+favored Magic-Tap as their preferred technique, highlighting
+its seamless interactions (P17: “Magic-Tap combines the ad-
+vantages of being error-proof with a short triggering time,
+allowing me to point at the next target without any additional
+actions directly. ”). Furthermore, the selection speed of Magic-
+Tap was favored by half of the participants (N= 10), who
+reported no significant difference in activation time compared
+to Touch.
+Dwell-Time secured the second spot, preferred by 45%
+(N=9) of participants, who appreciated its predictability. Par-
+ticipant P9 elaborated, “Fixed time allows me to anticipate the
+triggering, enhancing my sense of control over the technique”.
+Nonetheless, a notable portion, 40% (N= 8), reported arm
+fatigue as a significant drawback.
+Pinch was chosen as the third preference by 50% (N= 10)
+of participants, with P2 highlighting the tactile feedback, “The
+pinching action made me distinctly feel that I was making a
+selection decision” . However, 35% (N= 7) experienced diffi-
+culties with smaller targets, attributing it to increased physical
+effort.
+Touch was the least preferred technique for 55% (N=11) of
+participants, criticized mainly for its error-proneness as indi-
+cated by 70% (N=14) and the mental effort needed to navigate
+obstacles. Despite this, its responsiveness was acknowledged
+by 50% (N= 10). P2 added a nuanced view, “Using Touch
+would be easier to trigger when facing small target balls” ,
+suggesting a mixed reception based on target size.
+Regarding comparing finger-pointing and explicit gestures
+as trigger mechanisms, 40% (N= 8), participants believed that
+the binary gestures could lead to decreased capture accuracy
+and increased physical exertion. Conversely, the length of the
+fingers was seen to facilitate the exploration of the space back
+and forth, thus offering greater convenience. Only P6 favored
+specific gestures for their fun aspect.
+VI. DISCUSSION
+In this section, we first discuss the implications of Study
+One and recommend optimizing Magic-Tap’s parameter con-
+figurations for different scenarios. Moreover, based on the
+results of Study Two, we compare Magic-Tap’s unique trigger-
+ing mechanism with traditional mechanisms and discuss our
+findings.
+A. Interpreting Kinematic Data: Implications of Study One
+1) Kinematic Data Depiction Under Selection Behavior:
+In Experiment 1, the overall trend of the data indicates that
+when the user’s finger enters the ball, there is a sharp drop
+in both acceleration and speed, followed by a clear signal
+upon departure. These patterns provide critical insights for
+the design and parameter configuration of Magic-Tap. Notably,
+the acceleration and speed did not stabilize at zero when the
+finger remained stationary inside the ball. This discrepancy
+might be attributed to motor control’s constant [52] and signal-
+dependent noise [53]. Incorporating signal processing methods
+[54] would be beneficial for further utilization.
+2) How Different Parameters Impact Trigger Rate and
+Trigger Time: Seow et al. [55] have noted that users perceive
+a response as instantaneous if it occurs within 0.1-0.2 second.
+In Experiment 2, mean Trigger Time (Figure 6b) showed that
+most combinations met this criterion except for -3×0.1, -6×0.1,
+and -10×0.1. However, the theoretical shortest trigger time
+for Magic-Tap is 0.06s, which was achieved only once in
+20,089 attempts. Upon reviewing the raw data, we discovered
+that “minor finger jitters” could mistakenly satisfy the Exit
+Speed threshold, resulting in the Pre-Trigger being repeatedly
+activated and deactivated, leading to extended trigger time or
+even trigger failures. These jitters can be explained by the
+“Oscillation” phenomenon [56], where pointing movements
+naturally result in small oscillatory adjustments as the motor
+system attempts to maintain stability. Drawing from the results
+of Experiment 2, we identified Key Patterns of utilizing
+Kinematic Data in Magic-Tap’s mechanism:
+P1: A higher Acceleration threshold (e.g., α = −3m/s2 or
+−6m/s2) makes it easier to activate Pre-Trigger than a lower
+one (e.g., α = −10m/s2).
+P2: Pairing higher Acceleration with higher Exit Speed
+(e.g., γ=0.2m/s or 0.3m/s) could mitigate oscillations causing
+Pre-Trigger deactivations, thus improving Trigger Rate and
+reducing Trigger Time.
+P3: In contrast, pairing higher Acceleration with lower Exit
+Speed (e.g., γ=0.1m/s) increases Magic-Tap’s sensitivity to fin-
+ger oscillations, resulting in frequent Pre-Trigger deactivation
+and longer Trigger Time.
+Based on these findings, for optimal performance in terms of
+Trigger Rate and Trigger Time, we recommend the following
+settings: Acceleration Threshold α should be equal or greater
+than −6m/s2 (e.g., α = −3m/s2 or −6m/s2), and Exit Speed
+γ should be equal or greater than 0.2m/s (e.g., γ = 0 .2m/s or
+0.3m/s).
+3) The Trade-off Between Error Rate, Trigger Rate, and
+Trigger Time: In Experiment 2, all combinations demonstrated
+exceptionally low Error Rates for Glide-past gestures, an
+advantage stemming from Magic-Tap’s intrinsic mechanism.
+However, combinations with a higher Trigger Rate and shorter
+Trigger Time also exhibited higher Error Rates for Snap-back
+gestures. The main effect analysis indicated that Exit Speed
+is the predominant factor in this trade-off. Although a larger
+Exit Speed (e.g., γ = 0 .2m/s or 0.3m/s) may reduce the
+negative impact of finger oscillations, it also renders Magic-
+Tap less sensitive to cancel activation compared to a smaller
+Exit Speed (e.g., γ = 0.1m/s). Therefore, we identified that it
+is challenging for a single parameter combination to excel in
+all three metrics simultaneously. Combinations that perform
+exceptionally in two or three aspects tend to underperform in
+the remaining aspect(s).
+Based on this trade-off, we recommend the -3 ×0.1 combi-
+nation for achieving a significantly high Trigger Rate and low
+Error Rates for both Glide-past and Snap-back gestures. Al-
+though these come at the cost of a slightly longer trigger time
+(M=0.242s, SD= 0.024), it is very close to the instantaneous
+perceptual threshold, and its overall performance was favored
+by all participants in Experiment 2.
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 11
+Fig. 10. The collection of finger motion trajectories from 20 participants using different techniques: (a) Touch, (b) Dwell-Time, (c) Pinch, (d) Magic-Tap. The
+black spheres mark the 16 target spheres and hide the obstacles. Each color point in the diagrams represents finger data collected at 0.02-second intervals by
+the headset. The central arrow points in the direction the participant is facing. The point’s color indicates the finger’s speed, with specific values referenced
+on the bar to the right.
+4) Configuring Magic-Tap’s Parameter for Specific Scenar-
+ios: Building on previous findings, we propose Recommenda-
+tions for Magic-Tap’s configurations by relating the different
+combinations’ advantages to the specific task demands.
+R1: For applications like data visualization (e.g., Tableau
+[57]), where marking data among complex tags is crucial,
+speed often outweighs accuracy since accidental selections
+can be corrected easily. Thus, we suggest the -3 ×0.2, -
+3×0.3, -6×0.2, and -6×0.3 combinations for their high Trigger
+Rate and short Trigger Time. Additionally, these combinations
+could also effectively prevent most Glide-past gesture errors.
+R2: For applications like virtual keyboards [58], [59],
+the Snap-back gesture is a natural action following rapid
+keystrokes. Considering this unique behavior in such applica-
+tions, we recommend setting the Update Timer to 0 seconds,
+effectively disabling Magic-Tap’sCancellation Mechanism for
+the Snap-back gestures and shortening the Trigger Time.
+Configuring the Acceleration Threshold α to equal or greater
+than −6m/s2 could still effectively prevent errors caused by
+Glide-past gestures.
+R3: For critical applications like engineering or healthcare
+(e.g., Vuforia Studio [60]), where accuracy is more important
+than speed, we recommend the -3×0.1 setting for its balance
+of remarkably low Error Rate and latency. However, while
+an error-proof mechanism is beneficial, it may not be entirely
+adequate for scenarios where the consequences of erroneous
+triggering are particularly severe (e.g., permanently deleting
+files). Therefore, it is recommended that additional confirma-
+tion steps be incorporated to enhance its effectiveness.
+B. Interpreting Triggering Mechanisms: Implications of Study
+Two
+Previous research [7], [24] has explored the performance
+of using spatial coupling, fixed time, and explicit gestures in
+low-density environments. We further discussed how trigger-
+ing mechanisms of techniques affect user task performance,
+behavior, and experience in complex selection environments,
+building on the results of Study Two.
+1) Touch (Spatial Coupling): Spatial coupling offers an
+intuitive triggering metaphor, achieving near-instant triggering
+time. These advantages enable Touch to outperform Dwell-
+Time and Pinch in Task Completion Time and Throughput.
+Additionally, participants reported that Touch facilitates easier
+activation with smaller targets than alternative mechanisms.
+This advantage comes from the Touch’s mechanism using only
+one coupling point as the trigger [24], eliminating the impact
+of the fingers accidentally slipping off the smaller targets.
+However, we observed that participants navigated around
+obstacles by retracting their fingers when using Touch, as
+illustrated in Figure 10a. This finding extends previous studies
+[61], which highlighted that ray casting’s lack of disambigua-
+tion mechanisms demands extra effort for accurate selections.
+Moreover, the expansive interaction space and limited field
+of view (FOV) in virtual environments [62] made avoiding
+errors outside the focus area challenging, inevitably resulting
+in more errors. Therefore, while using spatial coupling alone
+as a triggering mechanism is fast, adding additional attributes
+as triggering conditions is necessary to achieve more compre-
+hensive performance in complex selection environments [2],
+[63].
+2) Dwell-Time (Spatial Coupling and Fixed Time): Dwell-
+Time utilizes a fixed duration of finger-target spatial cou-
+pling as an additional triggering condition. This mechanism
+effectively filters out potential errors. Moreover, the fixed
+time strengthens users’ perception of control over triggering,
+allowing direct pointing to the next target without concern
+for obstacles (as shown in Figure 10b), leading to shorter
+movement distance. However, employing a fixed time signifi-
+cantly increases Task Completion Time [7] compared to Touch
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 12
+and Magic-Tap, and consecutive selections lead to arm fatigue
+[64], yielding lower Physical and Temporal evaluations.
+3) Pinch (Spatial Coupling and Explicit Gesture): Pinch
+employs an explicit gesture as an additional triggering condi-
+tion, avoiding a fixed waiting time. According to participant
+feedback, explicit gestures significantly heighten awareness
+about their engagement, fostering more intentional interactions
+than implicit pointing gestures and demonstrating an excep-
+tionally low Error Rate.
+However, consistent with previous research [7], [64], [65],
+the binary gestures extended the interaction time and impaired
+users’ perception of the relative spatial positions between their
+fingers and the target. This disparity makes it challenging to
+ensure the pinch point falls within the target, which is similar
+to the Heisenberg Effect of Spatial Interaction [21], [28]
+observed in previous device-based techniques, where discrete
+input (e.g., button press) disturbs the tracker position, resulting
+in a different selection point.
+Moreover, the finger movement distance and finger motion
+trajectories (Figure 10c) corroborate that participants retract
+their fingers when using Pinch. Follow-up interviews revealed
+that ergonomic discomfort and intuitive response primarily
+caused this phenomenon. P2 and P19 claimed, “ I have to bend
+my wrist inward to prevent my fingers from being occluded.
+Slightly pulling my hand back when aiming for the next target
+helps reduce wrist pain ”. In addition, P4 mentioned, “ Pinch
+is more like the natural gesture of grasping objects, so I
+instinctively extend my hand forward ”. These findings further
+highlight the necessity of considering self-occlusion [65] and
+gesture metaphors in designing explicit gestures.
+4) Magic-Tap (Spatial Coupling and Kinematic Data):
+Magic-Tap utilizes finger kinematic data as an additional
+triggering condition. Regarding selection speed, Magic-Tap’s
+Task Completion Times and Throughput exhibit no significant
+differences from Touch. Specifically, half of the participants
+reported perceiving no significant difference in Trigger Time
+between Magic-Tap and Touch. However, we identified that
+kinematic differences [66] could lead to longer trigger times
+for Magic-Tap as the task ID decreases (Figure 8e), potentially
+making it challenging for users to achieve precise timing
+expectations similar to Dwell-Time. Control theoretic models
+of pointing [56] provide a reasonable explanation: conditions
+with a lower ID, due to users’ less constrained nature, naturally
+result in greater behavioral variability. Unlike the previously
+discussed Oscillatory phenomenon, this variability is instead
+a reflection of the inherent freedom in user behavior when
+performing easier selection tasks, emphasizing an important
+consideration for future study.
+Regarding Error Rates, Magic-Tap showed no significant
+differences compared to Dwell-Time and Pinch, and no errors
+were observed across all tasks. In addition, Magic-Tap cancels
+activation by detecting an increase in finger speed rather than
+spatial decoupling [67], which allows for more responsive
+cancellation when interacting with larger targets compared to
+Dwell-Time.
+Regarding user behavior and experience, Magic-Tap em-
+ploys the most natural finger-pointing for triggering [38].
+This promotes more accurate pointing and largely prevents
+the finger from being occluded [22] and Heisenberg Effect
+of Spatial Interaction [28]. Additionally, when participants
+utilized Magic-Tap in consecutive selection tasks, they tended
+to choose the shortest path directly to the next target (Figure
+10d), attributed to its reliable error prevention mechanism.
+These advantages significantly reduced the effort required for
+participants to complete selection tasks. Consequently, the
+NASA-TLX and UEQ results also reflected greater satisfaction
+with Magic-Tap’s performance and lower task load than other
+techniques. Notably, no differences in learnability were found
+between Magic-Tap and well-known techniques such as Touch
+and Dwell-Time, further substantiating Magic-Tap’s overall
+effectiveness and user-friendliness.
+C. Magic-Tap as a Comprehensive Technique
+Based on the results and discussions above, we believe that
+Magic-Tap embodies the Important Factors previously de-
+lineated, making it a comprehensive selection technique with
+potentials in various contexts. Magic-Tap, along with Touch
+and Dwell-Time, employs an implicit triggering mechanism,
+seamlessly integrating pointing and triggering actions, thus
+satisfying F1 (Seamlessness). Using the fingertip as an instru-
+ment and refining parameters through Study One, Magic-Tap
+has become easier and more reliable in triggering, satisfying
+F2 (Easy-to-trigger) . Furthermore, the results of Study Two
+demonstrate that Magic-Tap’s mechanism maintains a minimal
+response time (comparable to Touch) while ensuring reliable
+error-proofing (comparable to Dwell-Time and Pinch), thereby
+meeting F3 (Error-proofing) and F4 (Temporal Efficiency) .
+Benefiting from its natural interaction style and efficient
+performance, Magic-Tap aids participants in completing tasks
+by promoting motion economy and ergonomic comfort, meet-
+ing F5 (Workload) . While no selection technique perfectly
+fits every context, Magic-Tap’s unique combination of these
+factors provides new insights for further investigations and
+an additional option for designers to consider in different
+selection tasks.
+VII. LIMITATION AND FUTURE WORK
+Upon delving into the nuances of virtual hand selection
+behaviors and their kinematic profiles, we recognize Magic-
+Tap’s current design falls short of perfection. Introducing
+the Cancellation Mechanism to address the Snap-back ges-
+ture inadvertently impacts Magic-Tap’s responsiveness during
+deliberate selection. Future endeavors may aim to enhance
+Magic-Tap from a mechanistic standpoint, specifically by
+reevaluating and adjusting the kinematic data parameters uti-
+lized in its triggering and cancellation processes. Furthermore,
+our exploratory tests indicate promising results for Magic-
+Tap’s algorithm in mouse operations, though a more thorough
+evaluation is required. This has inspired us to use angular
+speed and angular acceleration to explore potential applica-
+tions in other modalities, such as gaze, head movement, and
+ray casting, guiding our future research.
+In terms of parameter fine-tuning, our findings indicate
+that the response time for selection using kinematic data is
+influenced by IDs, which include factors like target size and
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 13
+distance. Additionally, prior research [68]–[70] has shown that
+pointing performance varies with movement direction (e.g.,
+depth, lateral, or diagonal). Long-term tracking of selection
+behaviors is also noteworthy [71], particularly changes due
+to tremors or reduced muscle strength. These factors could
+potentially impact subtle variations in kinematic data during
+user selection, and while they may exceed the scope of a single
+study, these aspects are worth investigating in future research.
+In addition, the scope of this study did not extend to oc-
+cluded selection environments, presenting a potential research
+direction. Kinematic data might help infer pointing intentions,
+allowing for dynamic object layout adjustments to better align
+with user intent in dense [61] or occluded [72] settings,
+enhancing the virtual hand selection experience.
+VIII. CONCLUSION
+In this paper, we present Magic-Tap, an innovative selection
+technique in AR/VR that leverages kinematic data from hand
+movements to facilitate object triggering. We conducted two
+studies: Study One aimed at meticulously calibrating Magic-
+Tap’s configurations. Based on the results, we proposed sug-
+gestions for optimizing Magic-Tap’s parameter configurations
+in various selection tasks. Study Two compared Magic-Tap
+with traditional selection techniques (Touch, Dwell-Time, and
+Pinch). The results show that Magic-Tap is comparable to
+Touch in Task Completion Time and Throughput, while it is
+comparable to Dwell-Time and Pinch regarding Error Rate,
+and allows users to concentrate exclusively on the selection
+task without being distracted by superfluous confirmation
+signals. While Touch, Dwell-Time, and Pinch hold irreplace-
+able roles in certain specific scenarios, we believe Magic-
+Tap represents a novel approach, harnessing kinematic data to
+craft intuitive and efficient virtual hand selection techniques
+in AR/VR.
+REFERENCES
+[1] J. Bergstr ¨om, T.-S. Dalsgaard, J. Alexander, and K. Hornbæk, “How to
+evaluate object selection and manipulation in vr? guidelines from 20
+years of studies,” in proceedings of the 2021 CHI conference on human
+factors in computing systems , 2021, pp. 1–20.
+[2] F. Argelaguet and C. Andujar, “A survey of 3d object selection tech-
+niques for virtual environments,” Computers & Graphics, vol. 37, no. 3,
+pp. 121–136, 2013.
+[3] W. Delamare, M. Daniel, and K. Hasan, “Multifingerbubble: A 3d bubble
+cursor variation for dense environments,” in CHI Conference on Human
+Factors in Computing Systems Extended Abstracts , 2022, pp. 1–6.
+[4] L. Vanacken, T. Grossman, and K. Coninx, “Multimodal selection tech-
+niques for dense and occluded 3d virtual environments,” International
+Journal of Human-Computer Studies, vol. 67, no. 3, pp. 237–255, 2009.
+[5] W. Xu, H.-N. Liang, Y . Zhao, D. Yu, and D. Monteiro, “Dmove: Di-
+rectional motion-based interaction for augmented reality head-mounted
+displays,” inProceedings of the 2019 CHI Conference on Human Factors
+in Computing Systems , 2019, pp. 1–14.
+[6] T. Isomoto, T. Ando, B. Shizuki, and S. Takahashi, “Dwell time
+reduction technique using fitts’ law for gaze-based target acquisition,”
+in Proceedings of the 2018 ACM Symposium on Eye Tracking Research
+& Applications, 2018, pp. 1–7.
+[7] T. J. Dube, Y . Ren, H. Limerick, I. S. Mackenzie, and A. S. Arif, “Push,
+tap, dwell, and pinch: Evaluation of four mid-air selection methods
+augmented with ultrasonic haptic feedback,” Proceedings of the ACM
+on Human-Computer Interaction , vol. 6, no. ISS, pp. 207–225, 2022.
+[8] I. Chatterjee, R. Xiao, and C. Harrison, “Gaze+ gesture: Expressive,
+precise and targeted free-space interactions,” in Proceedings of the 2015
+ACM on International Conference on Multimodal Interaction , 2015, pp.
+131–138.
+[9] A. Esteves, Y . Shin, and I. Oakley, “Comparing selection mechanisms for
+gaze input techniques in head-mounted displays,” International Journal
+of Human-Computer Studies , vol. 139, p. 102414, 2020.
+[10] M. Kyt ¨o, B. Ens, T. Piumsomboon, G. A. Lee, and M. Billinghurst,
+“Pinpointing: Precise head-and eye-based target selection for augmented
+reality,” in Proceedings of the 2018 CHI Conference on Human Factors
+in Computing Systems , 2018, pp. 1–14.
+[11] S. Jalaliniya, D. Mardanbeigi, T. Pederson, and D. W. Hansen, “Head
+and eye movement as pointing modalities for eyewear computers,” in
+2014 11th International Conference on Wearable and Implantable Body
+Sensor Networks Workshops. IEEE, 2014, pp. 50–53.
+[12] C. J. Lin, S.-H. Ho, and Y .-J. Chen, “An investigation of pointing
+postures in a 3d stereoscopic environment,” Applied ergonomics, vol. 48,
+pp. 154–163, 2015.
+[13] R. J. Jagacinski and D. L. Monk, “Fitts’ law in two dimensions with hand
+and head movements movements,” Journal of motor behavior , vol. 17,
+no. 1, pp. 77–95, 1985.
+[14] A. M. Bernardos, D. G ´omez, and J. R. Casar, “A comparison of head
+pose and deictic pointing interaction methods for smart environments,”
+International Journal of Human-Computer Interaction , vol. 32, no. 4,
+pp. 325–351, 2016.
+[15] V . Tanriverdi and R. J. Jacob, “Interacting with eye movements in virtual
+environments,” in Proceedings of the SIGCHI conference on Human
+Factors in Computing Systems , 2000, pp. 265–272.
+[16] Y . Y . Qian and R. J. Teather, “The eyes don’t have it: an empirical
+comparison of head-based and eye-based selection in virtual reality,” in
+Proceedings of the 5th Symposium on Spatial User Interaction , 2017,
+pp. 91–98.
+[17] R. Shi, Y . Wei, X. Qin, P. Hui, and H.-N. Liang, “Exploring gaze-assisted
+and hand-based region selection in augmented reality,” Proceedings of
+the ACM on Human-Computer Interaction , vol. 7, no. ETRA, pp. 1–19,
+2023.
+[18] L. Sidenmark, F. Prummer, J. Newn, and H. Gellersen, “Comparing gaze,
+head and controller selection of dynamically revealed targets in head-
+mounted displays,” IEEE Transactions on Visualization and Computer
+Graphics, 2023.
+[19] I. Poupyrev and T. Ichikawa, “Manipulating objects in virtual worlds:
+Categorization and empirical evaluation of interaction techniques,” Jour-
+nal of Visual Languages & Computing , vol. 10, no. 1, pp. 19–35, 1999.
+[20] T. Feuchtner and J. M ¨uller, “Extending the body for interaction with
+reality,” in Proceedings of the 2017 CHI Conference on Human Factors
+in Computing Systems , 2017, pp. 5145–5157.
+[21] D. Yu, H.-N. Liang, F. Lu, V . Nanjappan, K. Papangelis, and W. Wang,
+“Target selection in head-mounted display virtual reality environments.”
+J. Univers. Comput. Sci. , vol. 24, no. 9, pp. 1217–1243, 2018.
+[22] R. Shi, J. Zhang, Y . Yue, L. Yu, and H.-N. Liang, “Exploration of
+bare-hand mid-air pointing selection techniques for dense virtual reality
+environments,” in Extended Abstracts of the 2023 CHI Conference on
+Human Factors in Computing Systems , 2023, pp. 1–7.
+[23] A. Steed, “Towards a general model for selection in virtual environ-
+ments,” in 3D User Interfaces (3DUI’06) . IEEE, 2006, pp. 103–110.
+[24] D. Bachmann, F. Weichert, and G. Rinkenauer, “Evaluation of the
+leap motion controller as a new contact-free pointing device,” Sensors,
+vol. 15, no. 1, pp. 214–233, 2014.
+[25] G. Ramos, M. Boulos, and R. Balakrishnan, “Pressure widgets,” in
+Proceedings of the SIGCHI conference on Human factors in computing
+systems, 2004, pp. 487–494.
+[26] M. Liu, M. Nancel, and D. V ogel, “Gunslinger: Subtle arms-down mid-
+air interaction,” in Proceedings of the 28th Annual ACM Symposium on
+User Interface Software & Technology , 2015, pp. 63–71.
+[27] D. Mendes, D. Medeiros, M. Sousa, E. Cordeiro, A. Ferreira, and J. A.
+Jorge, “Design and evaluation of a novel out-of-reach selection technique
+for vr using iterative refinement,” Computers & Graphics , vol. 67, pp.
+95–102, 2017.
+[28] D. Wolf, J. Gugenheimer, M. Combosch, and E. Rukzio, “Understanding
+the heisenberg effect of spatial interaction: A selection induced error
+for spatially tracked input devices,” in Proceedings of the 2020 CHI
+conference on human factors in computing systems , 2020, pp. 1–10.
+[29] A. Esteves, D. Verweij, L. Suraiya, R. Islam, Y . Lee, and I. Oakley,
+“Smoothmoves: Smooth pursuits head movements for augmented real-
+ity,” inProceedings of the 30th annual acm symposium on user interface
+software and technology , 2017, pp. 167–178.
+[30] M. Khamis, C. Oechsner, F. Alt, and A. Bulling, “Vrpursuits: Interaction
+in virtual reality using smooth pursuit eye movements,” in Proceedings
+of the 2018 international conference on advanced visual interfaces ,
+2018, pp. 1–8.
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021 14
+[31] J. Sermarini, J. T. Kider Jr, J. J. LaViola Jr, and D. S. McConnell, “A
+kinematic evaluation of linear and parabolic pointing in virtual reality,”
+in Proceedings of the Human Factors and Ergonomics Society Annual
+Meeting, vol. 65, no. 1. SAGE Publications Sage CA: Los Angeles,
+CA, 2021, pp. 86–90.
+[32] P. T. Pasqual and J. O. Wobbrock, “Mouse pointing endpoint prediction
+using kinematic template matching,” in Proceedings of the SIGCHI
+Conference on Human Factors in Computing Systems , 2014, pp. 743–
+752.
+[33] R. Henrikson, T. Grossman, S. Trowbridge, D. Wigdor, and H. Benko,
+“Head-coupled kinematic template matching: A prediction model for ray
+pointing in vr,” in Proceedings of the 2020 CHI Conference on Human
+Factors in Computing Systems , 2020, pp. 1–14.
+[34] E. Lank, Y .-C. N. Cheng, and J. Ruiz, “Endpoint prediction using
+motion kinematics,” inProceedings of the SIGCHI conference on Human
+Factors in Computing Systems , 2007, pp. 637–646.
+[35] M. E. Mott and J. O. Wobbrock, “Beating the bubble: using kinematic
+triggering in the bubble lens for acquiring small, dense targets,” in
+Proceedings of the SIGCHI Conference on Human Factors in Computing
+Systems, 2014, pp. 733–742.
+[36] J. A. ´A. Mart´ın, H. Gollee, J. M¨uller, and R. Murray-Smith, “Intermittent
+control as a model of mouse movements,” ACM Transactions on
+Computer-Human Interaction (TOCHI) , vol. 28, no. 5, pp. 1–46, 2021.
+[37] H.-S. Moon, Y .-C. Liao, C. Li, B. Lee, and A. Oulasvirta, “Real-time
+3d target inference via biomechanical simulation,” in Proceedings of the
+CHI Conference on Human Factors in Computing Systems , 2024, pp.
+1–18.
+[38] M. Nielsen, M. St ¨orring, T. B. Moeslund, and E. Granum, “A procedure
+for developing intuitive and ergonomic gesture interfaces for hci,” in
+Gesture-Based Communication in Human-Computer Interaction: 5th
+International Gesture Workshop, GW 2003, Genova, Italy, April 15-17,
+2003, Selected Revised Papers 5 . Springer, 2004, pp. 409–420.
+[39] X. Lou, X. A. Li, P. Hansen, and P. Du, “Hand-adaptive user interface:
+improved gestural interaction in virtual reality,” Virtual Reality, vol. 25,
+pp. 367–382, 2021.
+[40] “Magictap,” https://github.com/LoftyComet/MagicTapDemo, 2024, ac-
+cessed: 2024-11-12.
+[41] J. Accot and S. Zhai, “More than dotting the i’s—foundations for
+crossing-based interfaces,” in Proceedings of the SIGCHI conference
+on Human factors in computing systems , 2002, pp. 73–80.
+[42] F. Matulic and D. V ogel, “Multiray: multi-finger raycasting for large
+displays,” inProceedings of the 2018 CHI Conference on Human Factors
+in Computing Systems , 2018, pp. 1–13.
+[43] “Oculus,” https://www.meta.com/quest/, 2023, accessed: 2023-09-09.
+[44] “Microsoft hololens 2 official website,” https://www.microsoft.com/
+en-us/hololens, 2023, accessed: 2023-09-09.
+[45] E. Velloso, M. Carter, J. Newn, A. Esteves, C. Clarke, and H. Gellersen,
+“Motion correlation: Selecting objects by matching their movement,”
+ACM Transactions on Computer-Human Interaction (TOCHI) , vol. 24,
+no. 3, pp. 1–35, 2017.
+[46] N. Katzakis, L. Chen, O. Ariza, R. J. Teather, and F. Steinicke,
+“Evaluation of 3d pointing accuracy in the fovea and periphery in
+immersive head-mounted display environments,” IEEE transactions on
+visualization and computer graphics , vol. 27, no. 3, pp. 1929–1936,
+2019.
+[47] L. A. Elkin, M. Kay, J. J. Higgins, and J. O. Wobbrock, “An aligned rank
+transform procedure for multifactor contrast tests,” in The 34th annual
+ACM symposium on user interface software and technology , 2021, pp.
+754–768.
+[48] I. Iso, “9241–411 ergonomics of human-system interaction–part 411:
+Evaluation methods for the design of physical input devices,” Interna-
+tional Organization for Standardization , 2012.
+[49] S. Yamanaka, T. Kinoshita, Y . Oba, R. Tomihari, and H. Miyashita,
+“Varying subjective speed-accuracy biases to evaluate the generaliz-
+ability of experimental conclusions on pointing-facilitation techniques,”
+in Proceedings of the 2023 CHI Conference on Human Factors in
+Computing Systems, 2023, pp. 1–13.
+[50] T. Grossman and R. Balakrishnan, “The bubble cursor: enhancing target
+acquisition by dynamic resizing of the cursor’s activation area,” in
+Proceedings of the SIGCHI conference on Human factors in computing
+systems, 2005, pp. 281–290.
+[51] “Leap motion - mixed reality toolkit,” https://learn.microsoft.com/
+zh-cn/windows/mixed-reality/mrtk-unity/mrtk2/supported-devices/
+leap-motion-mrtk?view=mrtkunity-2022-05, 2022, accessed: 2024-03-
+01.
+[52] R. A. Schmidt, H. Zelaznik, B. Hawkins, J. S. Frank, and J. T. Quinn Jr,
+“Motor-output variability: a theory for the accuracy of rapid motor acts.”
+Psychological review, vol. 86, no. 5, p. 415, 1979.
+[53] R. J. Van Beers, P. Haggard, and D. M. Wolpert, “The role of execution
+noise in movement variability,” Journal of neurophysiology , vol. 91,
+no. 2, pp. 1050–1063, 2004.
+[54] F. De Groote, T. De Laet, I. Jonkers, and J. De Schutter, “Kalman
+smoothing improves the estimation of joint kinematics and kinetics in
+marker-based human gait analysis,” Journal of biomechanics , vol. 41,
+no. 16, pp. 3390–3398, 2008.
+[55] S. C. Seow, Designing and engineering time: The psychology of time
+perception in software . Addison-Wesley Professional, 2008.
+[56] J. M ¨uller, A. Oulasvirta, and R. Murray-Smith, “Control theoretic mod-
+els of pointing,” ACM Transactions on Computer-Human Interaction
+(TOCHI), vol. 24, no. 4, pp. 1–36, 2017.
+[57] “Tableau,” https://www.tableau.com/en-gb/products/desktop, 2023, ac-
+cessed: 2023-12-12.
+[58] “Introducing the virtual keyboard,” https://developer.oculus.com/blog/
+virtual-keyboard-meta-quest-developers/, 2023, accessed: 2023-12-12.
+[59] C. Attig, N. Rauh, T. Franke, and J. F. Krems, “System latency
+guidelines then and now–is zero latency really considered necessary?”
+in Engineering Psychology and Cognitive Ergonomics: Cognition and
+Design: 14th International Conference, EPCE 2017, Held as Part of
+HCI International 2017, Vancouver, BC, Canada, July 9-14, 2017,
+Proceedings, Part II 14 . Springer, 2017, pp. 3–14.
+[60] “Vuforia engine,” https://developer.vuforia.com/downloads/SDK, 2023,
+accessed: 2023-12-12.
+[61] H. Wu, X. Sun, H. Tu, and X. Zhang, “Clockray: A wrist-rotation
+based technique for occluded-target selection in virtual reality,” IEEE
+Transactions on Visualization and Computer Graphics , 2023.
+[62] X. Zhou, H. Qin, W. Xiao, L. Jia, and C. Xue, “A comparative usability
+study of bare hand three-dimensional object selection techniques in
+virtual environment,” Symmetry, vol. 12, no. 10, p. 1723, 2020.
+[63] A. Moore, M. Kodeih, A. Singhania, A. Wu, T. Bashir, and R. McMa-
+han, “The importance of intersection disambiguation for virtual hand
+techniques,” in 2019 IEEE International Symposium on Mixed and
+Augmented Reality (ISMAR) . IEEE, 2019, pp. 310–317.
+[64] W. Xu, X. Meng, K. Yu, S. Sarcar, and H.-N. Liang, “Evaluation of
+text selection techniques in virtual reality head-mounted displays,” in
+2022 IEEE International Symposium on Mixed and Augmented Reality
+(ISMAR). IEEE, 2022, pp. 131–140.
+[65] T. Luong, Y . F. Cheng, M. M ¨obus, A. Fender, and C. Holz, “Controllers
+or bare hands? a controlled evaluation of input techniques on interaction
+performance and exertion in virtual reality,” IEEE Transactions on
+Visualization and Computer Graphics , 2023.
+[66] L. D. Clark, M. El Iskandarani, and S. L. Riggs, “The effect of move-
+ment direction, hand dominance, and hemispace on reaching movement
+kinematics in virtual reality,” inProceedings of the 2023 CHI Conference
+on Human Factors in Computing Systems , 2023, pp. 1–18.
+[67] C. Yu, Y . Gu, Z. Yang, X. Yi, H. Luo, and Y . Shi, “Tap, dwell or gesture?
+exploring head-based text entry techniques for hmds,” in Proceedings
+of the 2017 CHI Conference on Human Factors in Computing Systems ,
+2017, pp. 4479–4488.
+[68] A. U. Batmaz, M. D. Barrera Machuca, J. Sun, and W. Stuerzlinger, “The
+effect of the vergence-accommodation conflict on virtual hand pointing
+in immersive displays,” in Proceedings of the 2022 CHI Conference on
+Human Factors in Computing Systems , 2022, pp. 1–15.
+[69] A. U. Batmaz, M. H. Mughribi, M. Sarac, M. B. Machuca, and W. Stuer-
+zlinger, “Measuring the effect of stereo deficiencies on peripersonal
+space pointing,” in 2023 IEEE conference virtual reality and 3D user
+interfaces (VR). IEEE, 2023, pp. 1–11.
+[70] A. U. Batmaz, R. Turkmen, M. Sarac, M. D. Barrera Machuca,
+and W. Stuerzlinger, “Re-investigating the effect of the vergence-
+accommodation conflict on 3d pointing,” in Proceedings of the 29th
+ACM symposium on virtual reality software and technology , 2023, pp.
+1–10.
+[71] L. M. Masopust, D. Bauer, S. Yao, and K.-L. Ma, “A comparison of
+the fatigue progression of eye-tracked and motion-controlled interaction
+in immersive space,” in 2021 IEEE International Symposium on Mixed
+and Augmented Reality (ISMAR) . IEEE, 2021, pp. 460–469.
+[72] D. Yu, Q. Zhou, J. Newn, T. Dingler, E. Velloso, and J. Goncalves,
+“Fully-occluded target selection in virtual reality,” IEEE transactions on
+visualization and computer graphics , vol. 26, no. 12, pp. 3402–3413,
+2020.
+This article has been accepted for publication in IEEE Transactions on Visualization and Computer Graphics. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TVCG.2025.3549044
+© 2025 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Southern University of Science and Technology. Downloaded on May 11,2025 at 10:44:39 UTC from IEEE Xplore.  Restrictions apply. 

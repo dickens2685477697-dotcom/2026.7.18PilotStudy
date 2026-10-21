@@ -1,0 +1,74 @@
+Subject folder ID: 1
+Time files found: 15
+20260802-17-37-15: header_columns=71, data_columns=[77], rows=48
+20260802-17-37-15: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260802-17-41-00: header_columns=71, data_columns=[77], rows=48
+20260802-17-41-00: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260802-18-13-27: header_columns=71, data_columns=[77], rows=48
+20260802-18-13-27: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260802-18-16-09: header_columns=71, data_columns=[77], rows=48
+20260802-18-16-09: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260802-18-22-59: header_columns=71, data_columns=[77], rows=48
+20260802-18-22-59: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-10-12: header_columns=71, data_columns=[77], rows=48
+20260830-17-10-12: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-16-34: header_columns=71, data_columns=[77], rows=48
+20260830-17-16-34: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-23-17: header_columns=71, data_columns=[77], rows=48
+20260830-17-23-17: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-27-24: header_columns=71, data_columns=[77], rows=48
+20260830-17-27-24: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-32-40: header_columns=71, data_columns=[77], rows=48
+20260830-17-32-40: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-37-36: header_columns=71, data_columns=[77], rows=48
+20260830-17-37-36: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-42-51: header_columns=71, data_columns=[77], rows=48
+20260830-17-42-51: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-47-20: header_columns=71, data_columns=[77], rows=48
+20260830-17-47-20: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-17-54-42: header_columns=71, data_columns=[77], rows=48
+20260830-17-54-42: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+20260830-19-11-37: header_columns=71, data_columns=[77], rows=48
+20260830-19-11-37: selected_formal_trials=45, excluded_start_ball=3, excluded_duplicate_targets=0
+Unique techniques: 15
+Trial rows produced: 675
+Participant ID source: folder/CLI value=1; raw CSV 'ID' values=['1', '2', '3'] are logged ID conditions (so an internal ID=3 is not a participant-3 label).
+Raw Trigger records by technique: pinchReleaseTrigger=48, pinchDwell=48, pinchDirection=48, pinchThumbSwipe=48, dwell=48, dwellRelease=48, dwellDirection=48, speed=48, speedDwell=48, speedRelease=48, speedDirection=48, release010=48, time010=48, direction010=48, contact010=48
+Raw Trigger record total: 720; per-technique range=48-48 (nominal 48; formal target records exclude Starting Balls and duplicate targets).
+Logged ID code to geometry-derived ID mapping: 1->L-ID, 2->M-ID, 3->H-ID
+L-ID observed diameters (m): [0.5]
+M-ID observed diameters (m): [0.6]
+H-ID observed diameters (m): [0.7]
+
+Validation
+Expected trial rows: 15 x 3 x 15 = 675; actual=675
+Expected technique-by-ID rows: 15 x 3 = 45; actual=45
+Missing trial trajectories: 0
+Invalid/negative Trigger Time values excluded: 0
+Target-entry totals per technique x ID: min=15, max=69
+Trigger trial failure rule: in_target_times > 1 means the trial is failed; in_target_times <= 1 means successful.
+Trigger trial failures: 151/675 (22.4% overall)
+L-ID Trigger trial failures: 42/225 (18.7%)
+M-ID Trigger trial failures: 27/225 (12.0%)
+H-ID Trigger trial failures: 82/225 (36.4%)
+ID plotting order: L-ID (2.713), M-ID (3.459), H-ID (4.605)
+
+Technique acquisition order
+01. pinchReleaseTrigger
+02. pinchDwell
+03. pinchDirection
+04. pinchThumbSwipe
+05. dwell
+06. dwellRelease
+07. dwellDirection
+08. speed
+09. speedDwell
+10. speedRelease
+11. speedDirection
+12. release010
+13. time010
+14. direction010
+15. contact010
+
+No outlier removal was applied.
+Task Error Rate and Throughput were not calculated.

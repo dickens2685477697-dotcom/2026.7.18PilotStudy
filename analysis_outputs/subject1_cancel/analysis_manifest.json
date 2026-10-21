@@ -1,0 +1,18 @@
+{
+  "subject_id": 1,
+  "input_dir": "D:\\2026.7.18PilotStudy\\1\\Cancel",
+  "output_dir": "D:\\2026.7.18PilotStudy\\analysis_outputs\\subject1_cancel",
+  "event_scope": "all_available_cancel_records",
+  "events_per_id_target": 16,
+  "nominal_raw_rows": 720,
+  "raw_rows_retained": 704,
+  "summary_rows": 45,
+  "starting_ball_rows_retained": 44,
+  "trigger_comparison_used": false,
+  "notes": [
+    "Unlike Magic-Tap Trigger, Cancel analysis retains the 16 events per logged ID, including Starting Balls.",
+    "contact010 source data contains only 32 rows (IDs 2 and 3); its L-ID summary is NA.",
+    "Target entry count is the sum of in_target_times; activation rate is reported separately.",
+    "No raw outlier removal; M +/- 3 SD flags are sensitivity annotations."
+  ]
+}

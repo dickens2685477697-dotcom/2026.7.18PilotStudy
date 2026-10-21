@@ -1,0 +1,21 @@
+{
+  "subject_id": 2,
+  "input_dir": "D:\\2026.7.18PilotStudy\\2\\Cancel",
+  "output_dir": "D:\\2026.7.18PilotStudy\\analysis_outputs\\subject2_cancel",
+  "primary_rows": 675,
+  "supplemental_raw_rows": 16,
+  "summary_rows": 45,
+  "technique_count": 15,
+  "id_levels": [
+    "L-ID",
+    "M-ID",
+    "H-ID"
+  ],
+  "trigger_summary_used": true,
+  "notes": [
+    "Start-ball rows are excluded from primary condition metrics and retained in cancel_start_ball_audit.csv.",
+    "dwellDirection cases 49-64 are supplemental raw events.",
+    "No raw outlier removal; M +/- 3 SD flags are sensitivity annotations.",
+    "cancel_reason and no_trigger_reason are analyzed in separate CSV summaries and charts."
+  ]
+}

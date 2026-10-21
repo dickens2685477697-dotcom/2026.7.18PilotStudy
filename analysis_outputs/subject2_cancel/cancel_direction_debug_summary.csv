@@ -1,0 +1,13 @@
+﻿subject_id,technique,technique_short,id_level,debug_rows,angle_valid_n,angle_mean_deg,angle_median_deg,angle_threshold_mean_deg,index_speed_mean,angle_pass_rate,speed_pass_rate,window_ready_rate,cancel_already_triggered_n
+2,pinchDirection,T03,H-ID,419,28,82.216071,79.67,20.0,0.035042,,,,0
+2,pinchDirection,T03,L-ID,198,38,60.672105,51.49,20.0,0.067254,,,,0
+2,pinchDirection,T03,M-ID,339,34,58.836765,42.17,20.0,0.047064,,,,0
+2,dwellDirection,T07,H-ID,695,66,122.343333,149.615,20.0,0.067376,,,,0
+2,dwellDirection,T07,L-ID,629,142,101.42,103.555,20.0,0.135386,,,,0
+2,dwellDirection,T07,M-ID,573,81,107.189259,100.38,20.0,0.08206,,,,0
+2,speedDirection,T11,H-ID,1113,83,119.000602,147.21,20.0,0.044415,,,,0
+2,speedDirection,T11,L-ID,446,44,71.592727,72.615,20.0,0.057865,,,,0
+2,speedDirection,T11,M-ID,542,39,80.711026,76.98,20.0,0.049619,,,,0
+2,direction010,T14,H-ID,446,61,81.885902,70.17,20.0,0.078579,,,,0
+2,direction010,T14,L-ID,586,201,89.273831,90.55,20.0,0.21196,,,,0
+2,direction010,T14,M-ID,561,142,86.985141,88.325,20.0,0.145084,,,,0

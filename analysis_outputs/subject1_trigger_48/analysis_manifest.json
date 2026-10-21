@@ -1,0 +1,17 @@
+{
+  "subject_id": 1,
+  "input_dir": "D:\\2026.7.18PilotStudy\\1\\Trigger",
+  "output_dir": "D:\\2026.7.18PilotStudy\\analysis_outputs\\subject1_trigger_48",
+  "primary_scope": "raw_48_selected_including_starting_ball",
+  "events_per_id": 16,
+  "selected_rows": 720,
+  "extra_rows_excluded": 0,
+  "summary_cells": 45,
+  "raw_48_failure_n": 165,
+  "raw_48_failure_rate": 0.22916666666666666,
+  "formal_45_failure_n": 151,
+  "formal_45_failure_rate": 0.2237037037037037,
+  "rule": "in_target_times > 1",
+  "task_error_rate_calculated": false,
+  "throughput_calculated": false
+}

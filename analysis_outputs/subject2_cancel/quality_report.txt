@@ -1,0 +1,25 @@
+Subject folder ID: 2
+Time files found: 15
+20260804-21-04-57: mode=pinchReleaseTrigger, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-07-50: mode=pinchDwell, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-10-27: mode=pinchDirection, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-12-38: mode=pinchThumbSwipe, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-14-29: mode=dwell, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-16-17: mode=dwellRelease, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-18-21: mode=dwellDirection, raw_rows=64, primary_formal=45, start_excluded=3, supplemental=16, status=PASS
+20260804-21-21-06: mode=speed, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-23-35: mode=speedDwell, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-35-11: mode=speedRelease, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-37-53: mode=speedDirection, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-40-23: mode=release010, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-41-54: mode=time010, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-43-32: mode=direction010, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+20260804-21-45-38: mode=contact010, raw_rows=48, primary_formal=45, start_excluded=3, supplemental=0, status=PASS
+Unique techniques: 15
+Primary formal rows: 675 (expected 675)
+Supplemental raw rows: 16
+ID mapping: raw 1/2/3 -> L-ID/M-ID/H-ID; geometry diameters 0.5/0.6/0.7 m.
+NA, blank, and -1 time values are treated as missing, never as zero.
+No raw outlier removal was applied; M +/- 3 SD flags are sensitivity annotations only.
+Cancel-reason summary rows: 45 (analyzed separately).
+No-trigger-reason summary rows: 64 (analyzed separately).

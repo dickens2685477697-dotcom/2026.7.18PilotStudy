@@ -1,0 +1,16 @@
+﻿subject_id,run_id,technique,header_columns,data_columns,raw_rows,raw_id1_rows,raw_id2_rows,raw_id3_rows,primary_48_event_rows,primary_id1_rows,primary_id2_rows,primary_id3_rows,excluded_start_rows,starting_ball_rows_retained,duplicate_nonstart_targets_retained,case_sequence_ok,trajectory_rows,trajectory_case_count,missing_trajectory_case_count,extra_trajectory_case_count,status,notes
+1,20260830-19-43-59,pinchReleaseTrigger,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3979,48,0,0,PASS,
+1,20260830-19-52-14,pinchDwell,71,77,48,16,16,16,48,16,16,16,0,3,0,True,4018,48,0,0,PASS,
+1,20260830-19-58-45,pinchDirection,71,77,48,16,16,16,48,16,16,16,0,3,0,True,5205,48,0,0,PASS,
+1,20260830-20-04-39,pinchThumbSwipe,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3873,48,0,0,PASS,
+1,20260830-20-09-36,dwell,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3377,48,0,0,PASS,
+1,20260830-20-15-30,dwellRelease,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3789,48,0,0,PASS,
+1,20260830-20-21-36,dwellDirection,71,77,48,16,16,16,48,16,16,16,0,3,0,True,5622,48,0,0,PASS,
+1,20260830-20-31-07,speed,71,77,48,16,16,16,48,16,16,16,0,3,0,True,5550,48,0,0,PASS,
+1,20260830-20-37-58,speedDwell,71,77,48,16,16,16,48,16,16,16,0,3,0,True,4897,48,0,0,PASS,
+1,20260830-20-48-02,speedRelease,71,77,48,16,16,16,48,16,16,16,0,3,0,True,5348,48,0,0,PASS,
+1,20260830-20-58-51,speedDirection,71,77,48,16,16,16,48,16,16,16,0,3,0,True,6419,48,0,0,PASS,
+1,20260830-21-07-35,release010,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3562,48,0,0,PASS,
+1,20260830-21-16-05,time010,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3815,48,0,0,PASS,
+1,20260830-21-24-22,direction010,71,77,48,16,16,16,48,16,16,16,0,3,0,True,3982,48,0,0,PASS,
+1,20260830-21-33-05,contact010,71,77,32,0,16,16,32,0,16,16,0,2,0,True,3167,32,0,0,CHECK,missing logged IDs=[1]

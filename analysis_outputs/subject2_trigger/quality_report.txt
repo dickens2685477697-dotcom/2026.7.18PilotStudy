@@ -1,0 +1,67 @@
+Subject folder ID: 2
+Time files found: 15
+20260730-20-38-59: header_columns=70, data_columns=[76], rows=45
+20260730-20-38-59: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-20-42-20: header_columns=70, data_columns=[76], rows=45
+20260730-20-42-20: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-17-50: header_columns=70, data_columns=[76], rows=45
+20260730-21-17-50: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-20-18: header_columns=70, data_columns=[76], rows=45
+20260730-21-20-18: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-21-34: header_columns=70, data_columns=[76], rows=45
+20260730-21-21-34: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-23-15: header_columns=70, data_columns=[76], rows=45
+20260730-21-23-15: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-25-00: header_columns=70, data_columns=[76], rows=45
+20260730-21-25-00: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-27-08: header_columns=70, data_columns=[76], rows=45
+20260730-21-27-08: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-38-36: header_columns=70, data_columns=[76], rows=45
+20260730-21-38-36: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-21-42-50: header_columns=70, data_columns=[76], rows=45
+20260730-21-42-50: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-22-05-23: header_columns=70, data_columns=[76], rows=45
+20260730-22-05-23: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-22-07-48: header_columns=70, data_columns=[76], rows=45
+20260730-22-07-48: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-22-09-02: header_columns=70, data_columns=[76], rows=45
+20260730-22-09-02: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-22-09-59: header_columns=70, data_columns=[76], rows=45
+20260730-22-09-59: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+20260730-22-13-36: header_columns=70, data_columns=[76], rows=45
+20260730-22-13-36: selected_formal_trials=45, excluded_start_ball=0, excluded_duplicate_targets=0
+Unique techniques: 15
+Trial rows produced: 675
+Participant ID source: folder/CLI value=2; raw CSV 'ID' values=['1', '2', '3'] are logged ID conditions (so an internal ID=3 is not a participant-3 label).
+Logged ID code to geometry-derived ID mapping: 1->L-ID, 2->M-ID, 3->H-ID
+L-ID observed diameters (m): [0.5]
+M-ID observed diameters (m): [0.6]
+H-ID observed diameters (m): [0.7]
+
+Validation
+Expected trial rows: 15 x 3 x 15 = 675; actual=675
+Expected technique-by-ID rows: 15 x 3 = 45; actual=45
+Missing trial trajectories: 0
+Invalid/negative Trigger Time values excluded: 0
+Target-entry totals per technique x ID: min=15, max=36
+ID plotting order: L-ID (2.713), M-ID (3.459), H-ID (4.605)
+
+Technique acquisition order
+01. pinchReleaseTrigger
+02. pinchDwell
+03. pinchDirection
+04. pinchThumbSwipe
+05. dwell
+06. dwellRelease
+07. dwellDirection
+08. speed
+09. speedDwell
+10. speedRelease
+11. speedDirection
+12. release010
+13. time010
+14. direction010
+15. contact010
+
+No outlier removal was applied.
+Task Error Rate and Throughput were not calculated.

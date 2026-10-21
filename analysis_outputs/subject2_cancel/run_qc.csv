@@ -1,0 +1,16 @@
+﻿subject_id,run_id,technique,header_columns,data_columns,raw_rows,raw_id1_rows,raw_id2_rows,raw_id3_rows,primary_formal_rows,primary_id1_rows,primary_id2_rows,primary_id3_rows,supplemental_raw_rows,excluded_start_rows,duplicate_nonstart_targets,case_sequence_ok,trajectory_rows,trajectory_case_count,missing_trajectory_case_count,extra_trajectory_case_count,direction_debug_rows,status,notes
+2,20260804-21-04-57,pinchReleaseTrigger,71,77,48,16,16,16,45,15,15,15,0,3,0,True,3549,48,0,0,0,PASS,
+2,20260804-21-07-50,pinchDwell,71,77,48,16,16,16,45,15,15,15,0,3,0,True,5211,48,0,0,0,PASS,
+2,20260804-21-10-27,pinchDirection,71,77,48,16,16,16,45,15,15,15,0,3,0,True,4497,48,0,0,956,PASS,
+2,20260804-21-12-38,pinchThumbSwipe,71,77,48,16,16,16,45,15,15,15,0,3,0,True,4031,48,0,0,0,PASS,
+2,20260804-21-14-29,dwell,71,77,48,16,16,16,45,15,15,15,0,3,0,True,3571,48,0,0,0,PASS,
+2,20260804-21-16-17,dwellRelease,71,77,48,16,16,16,45,15,15,15,0,3,0,True,3768,48,0,0,0,PASS,
+2,20260804-21-18-21,dwellDirection,71,77,64,16,32,16,45,15,15,15,16,3,0,True,6026,64,0,0,2500,PASS,cases > 48 retained as supplemental
+2,20260804-21-21-06,speed,71,77,48,16,16,16,45,15,15,15,0,3,0,True,5434,48,0,0,0,PASS,
+2,20260804-21-23-35,speedDwell,71,77,48,16,16,16,45,15,15,15,0,3,0,True,4445,48,0,0,0,PASS,
+2,20260804-21-35-11,speedRelease,71,77,48,16,16,16,45,15,15,15,0,3,0,True,5481,48,0,0,0,PASS,
+2,20260804-21-37-53,speedDirection,71,77,48,16,16,16,45,15,15,15,0,3,0,True,5229,48,0,0,2101,PASS,
+2,20260804-21-40-23,release010,71,77,48,16,16,16,45,15,15,15,0,3,0,True,3220,48,0,0,0,PASS,
+2,20260804-21-41-54,time010,71,77,48,16,16,16,45,15,15,15,0,3,0,True,3318,48,0,0,0,PASS,
+2,20260804-21-43-32,direction010,71,77,48,16,16,16,45,15,15,15,0,3,0,True,3872,48,0,0,1593,PASS,
+2,20260804-21-45-38,contact010,71,77,48,16,16,16,45,15,15,15,0,3,0,True,4117,48,0,0,0,PASS,

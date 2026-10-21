@@ -1,0 +1,35 @@
+Subject folder ID: 1
+Time files found: 15
+20260830-19-43-59: mode=pinchReleaseTrigger, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-19-52-14: mode=pinchDwell, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-19-58-45: mode=pinchDirection, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-04-39: mode=pinchThumbSwipe, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-09-36: mode=dwell, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-15-30: mode=dwellRelease, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-21-36: mode=dwellDirection, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-31-07: mode=speed, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-37-58: mode=speedDwell, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-48-02: mode=speedRelease, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-20-58-51: mode=speedDirection, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-21-07-35: mode=release010, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-21-16-05: mode=time010, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-21-24-22: mode=direction010, raw_rows=48, 48-event_rows=48, starts_retained=3, status=PASS
+20260830-21-33-05: mode=contact010, raw_rows=32, 48-event_rows=32, starts_retained=2, status=CHECK
+Unique techniques: 15
+Raw Cancel event rows retained: 704 (nominal expected 720)
+Analysis scope: all available Cancel records; Starting Balls are retained, so a complete technique has 48 events (16 per logged ID).
+ID mapping: raw 1/2/3 -> L-ID/M-ID/H-ID; geometry diameters 0.5/0.6/0.7 m.
+NA, blank, and -1 time values are treated as missing, never as zero.
+No raw outlier removal; M +/- 3 SD flags are sensitivity annotations only.
+
+Validation
+Expected raw rows for 15 techniques x 3 IDs x 16 events: 720; actual=704
+Technique x ID summary rows: 45 (expected 45; empty cells are retained as NA)
+Complete 48-event technique runs: 14/15
+contact010 L-ID missing: yes (the source file contains only IDs 2 and 3)
+Starting Ball rows retained in primary scope: 44
+Missing trial trajectories: 0
+Invalid/negative time values represented as missing: 326 cancel-time fields; source sentinels remain auditable in raw files
+No Trigger comparison was pooled into this standalone Cancel analysis; Trigger uses a different 45-target scope.
+Cancel reasons and no-trigger reasons are summarized separately.
+Target entry count is the sum of in_target_times across the retained 16 events per ID; see target_entry_count_by_id.csv and target_entry_count_table.png.

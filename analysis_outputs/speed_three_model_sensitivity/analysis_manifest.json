@@ -1,0 +1,33 @@
+{
+  "title": "Speed 50 Hz to simulated 30 Hz three-model sensitivity analysis",
+  "status": "sensitivity analysis; not a real 30 Hz experiment",
+  "thresholds": {
+    "speed_min_m_s": 0.067,
+    "speed_max_m_s": 0.375,
+    "speed_dwell_timeout_s": 0.7
+  },
+  "phases": 20,
+  "models": {
+    "conservative": {
+      "boundary": "none"
+    },
+    "nominal": {
+      "boundary": "first"
+    },
+    "liberal": {
+      "boundary": "prefix"
+    }
+  },
+  "model_notes": {
+    "conservative": "Use logged target state within the current Case only; no next-Case boundary recovery.",
+    "nominal": "Use logged target state and restore the first observation from the next Case.",
+    "liberal": "Use logged target state and restore the contiguous next-Case prefix that still names the selected target."
+  },
+  "limitations": [
+    "IndexDistal is not logged although the original collider accepts IndexTip OR IndexDistal.",
+    "The analysis resamples stored 50 Hz ori_v values; it does not recreate a native 30 Hz velocity estimator.",
+    "speedRelease release cancellation is omitted; its result isolates the shared speed gate.",
+    "speedDirection direction cancellation is omitted; its result isolates the shared speed gate.",
+    "Post-trigger observations are feedback-dependent, so boundary recovery is an assumption."
+  ]
+}

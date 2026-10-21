@@ -1,0 +1,28 @@
+{
+  "subject_ids": [
+    1,
+    5
+  ],
+  "input_dirs": {
+    "1": "D:\\2026.7.18PilotStudy\\1\\Trigger",
+    "5": "D:\\2026.7.18PilotStudy\\5\\Trigger"
+  },
+  "output_dir": "D:\\2026.7.18PilotStudy\\analysis_outputs\\subjects1_5_trigger_48",
+  "primary_scope": "raw_48_selected_including_starting_ball",
+  "events_per_id": 16,
+  "selected_rows": 1440,
+  "raw_rows_read": {
+    "1": 720,
+    "5": 721
+  },
+  "extra_rows_excluded": {
+    "5": 1
+  },
+  "combined_cells": 45,
+  "raw_48_failure_n": 338,
+  "raw_48_failure_rate": 0.23472222222222222,
+  "formal_45_failure_n": 317,
+  "formal_45_failure_rate": 0.2348148148148148,
+  "rule": "in_target_times > 1",
+  "aggregation": "equal subject weighting; between-subject sample SD"
+}

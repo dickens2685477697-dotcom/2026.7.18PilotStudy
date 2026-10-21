@@ -1,0 +1,26 @@
+Subject folder ID: 1
+Time files found: 15
+20260802-17-37-15: mode=dwell, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260802-17-41-00: mode=dwellRelease, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260802-18-13-27: mode=release010, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260802-18-16-09: mode=time010, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260802-18-22-59: mode=contact010, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-10-12: mode=pinchReleaseTrigger, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-16-34: mode=pinchDwell, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-23-17: mode=pinchDirection, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-27-24: mode=pinchThumbSwipe, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-32-40: mode=dwellDirection, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-37-36: mode=speed, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-42-51: mode=speedDwell, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-47-20: mode=speedRelease, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-17-54-42: mode=direction010, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+20260830-19-11-37: mode=speedDirection, header_columns=71, data_columns=[77], raw_rows=48, starts_retained=3
+
+Validation
+Raw-48 events retained: 720 (expected 720)
+Formal-45 events available for comparison: 675 (expected 675)
+Failure rule: in_target_times > 1 => failed Trigger trial; in_target_times <= 1 => successful Trigger trial.
+Raw-48 failure rate: 165/720 (22.9%)
+Formal-45 failure rate: 151/675 (22.4%)
+Raw-48 scope includes Starting Ball; formal-45 scope excludes Starting Ball.
+This is a Trigger-specific multi-entry failure rate, not Task Error Rate.
