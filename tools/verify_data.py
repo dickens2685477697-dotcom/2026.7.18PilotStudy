@@ -36,6 +36,8 @@ def inventory() -> list[dict[str, str]]:
         first = relative.parts[0]
         category = (
             "raw" if first.isdecimal()
+            else "analysis_output" if first == "30hz_50hz_analysis" and relative.parts[1] == "results"
+            else "raw" if first == "30hz_50hz_analysis"
             else "legacy" if first == "旧版"
             else "analysis_output" if first == "analysis_outputs"
             else "supporting_record"

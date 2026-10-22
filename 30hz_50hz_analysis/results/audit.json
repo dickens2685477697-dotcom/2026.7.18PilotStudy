@@ -1,0 +1,231 @@
+{
+  "sessions": [
+    {
+      "session": "20261022-10-41-13",
+      "header_columns": 71,
+      "row_columns": [
+        77
+      ],
+      "handling": "Read first 26 fields by csv.reader; do not infer pandas index.",
+      "trial_time_max_absolute_difference_s": 7.2281921053019005e-06,
+      "summary_vs_time_entry_counts_match": true,
+      "summary_vs_unique_sample_counts_match": true,
+      "pre_experiment_entries_excluded": 7
+    },
+    {
+      "session": "20261022-10-46-41",
+      "header_columns": 71,
+      "row_columns": [
+        77
+      ],
+      "handling": "Read first 26 fields by csv.reader; do not infer pandas index.",
+      "trial_time_max_absolute_difference_s": 4.582118592333373e-06,
+      "summary_vs_time_entry_counts_match": true,
+      "summary_vs_unique_sample_counts_match": true,
+      "pre_experiment_entries_excluded": 5
+    },
+    {
+      "session": "20261022-10-48-38",
+      "header_columns": 71,
+      "row_columns": [
+        77
+      ],
+      "handling": "Read first 26 fields by csv.reader; do not infer pandas index.",
+      "trial_time_max_absolute_difference_s": 6.277702331525248e-06,
+      "summary_vs_time_entry_counts_match": true,
+      "summary_vs_unique_sample_counts_match": true,
+      "pre_experiment_entries_excluded": 7
+    },
+    {
+      "session": "20261022-10-50-32",
+      "header_columns": 71,
+      "row_columns": [
+        77
+      ],
+      "handling": "Read first 26 fields by csv.reader; do not infer pandas index.",
+      "trial_time_max_absolute_difference_s": 5.820563602432216e-06,
+      "summary_vs_time_entry_counts_match": true,
+      "summary_vs_unique_sample_counts_match": true,
+      "pre_experiment_entries_excluded": 3
+    }
+  ],
+  "source_files": [
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-direction-debug.csv",
+      "bytes": 530,
+      "sha256": "679d872e22c16d87cf46a85edbb888083cbbbc65cd3a41d47e5126051c72b328"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-errorLoc.csv",
+      "bytes": 94,
+      "sha256": "e7d7a80c90194766082c55387594f3bd1154847171496ee0b7f07ddbb8ada582"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-pinch-release-distance.csv",
+      "bytes": 375,
+      "sha256": "f73f27fe83ec30ba9760518b67915a4d257fc612afd2705e7cbc4e18835c54ad"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-session-settings.csv",
+      "bytes": 11177,
+      "sha256": "aab63412befdda0dc7a65a4781db223bfc4bea02d79055cf839a12e5d81aa373"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-speed-boundary-debug.csv",
+      "bytes": 3608960,
+      "sha256": "7d1cce61c2d8be72c100151444c0cc3e143cb5cb446f4d392dcdcfef3b2a5dc6"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-speed-entry-summary.csv",
+      "bytes": 47600,
+      "sha256": "df5a8a657ac1c9cbcd25d3b680e43b374e920b9bba9e7ea592df0c40060de235"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-time.csv",
+      "bytes": 27076,
+      "sha256": "fe8efb3183388449acc417f58374b3312c819d165912f2f3632254ff8ae52d4e"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-41-13\\20261022-10-41-13-trajectory.csv",
+      "bytes": 1118850,
+      "sha256": "cdcba1837ced5dce07679be78a44bd200c1d13b9246c6473de0706002ade7012"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-direction-debug.csv",
+      "bytes": 530,
+      "sha256": "679d872e22c16d87cf46a85edbb888083cbbbc65cd3a41d47e5126051c72b328"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-errorLoc.csv",
+      "bytes": 94,
+      "sha256": "e7d7a80c90194766082c55387594f3bd1154847171496ee0b7f07ddbb8ada582"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-pinch-release-distance.csv",
+      "bytes": 375,
+      "sha256": "f73f27fe83ec30ba9760518b67915a4d257fc612afd2705e7cbc4e18835c54ad"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-session-settings.csv",
+      "bytes": 10277,
+      "sha256": "83759294193be1985b8c390cd78b4c9546f7d4a380b917d5e85970a8f4ae18ba"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-speed-boundary-debug.csv",
+      "bytes": 3153036,
+      "sha256": "b028bb9e9e82fe77b8dd78051a0bbdb25630b953643b617341f00c584b04d8a2"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-speed-entry-summary.csv",
+      "bytes": 41617,
+      "sha256": "9c31b0589eeb1995867cb982d42572d4da2baf776b108d1e291e2111b14f4f6b"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-time.csv",
+      "bytes": 26766,
+      "sha256": "f50c0c2198cd0f470af22d6f8a5fac43284d6de9c47fe76e4f6b1e306d8594c1"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-46-41\\20261022-10-46-41-trajectory.csv",
+      "bytes": 1454517,
+      "sha256": "d4a87072b36e3dc91bfc0d3034555112a6fe38e18552fe3d3c1be74b7875a138"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-direction-debug.csv",
+      "bytes": 530,
+      "sha256": "679d872e22c16d87cf46a85edbb888083cbbbc65cd3a41d47e5126051c72b328"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-errorLoc.csv",
+      "bytes": 94,
+      "sha256": "e7d7a80c90194766082c55387594f3bd1154847171496ee0b7f07ddbb8ada582"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-pinch-release-distance.csv",
+      "bytes": 375,
+      "sha256": "f73f27fe83ec30ba9760518b67915a4d257fc612afd2705e7cbc4e18835c54ad"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-session-settings.csv",
+      "bytes": 11153,
+      "sha256": "3c69f4e6d6cdfe5f0830564d830f81e1cf89dc0d1beb060a82e53043da5fec02"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-speed-boundary-debug.csv",
+      "bytes": 2712089,
+      "sha256": "52695e9936fa80eeb271cb8e8bed0182ae93904aeb4dc923c9c607510339ed6e"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-speed-entry-summary.csv",
+      "bytes": 41402,
+      "sha256": "4604a50f1f78589a24a4c44ff7f4610a6672fe3b61d8b507b8dca77f72d60dd6"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-time.csv",
+      "bytes": 26312,
+      "sha256": "8fd0cdbaf01a949ebd8b23159de403d6073c497a99a7e2e446bcc49416ffbc2e"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-48-38\\20261022-10-48-38-trajectory.csv",
+      "bytes": 885469,
+      "sha256": "6282842cfff419a1b2b6a0e97ee8f8fde617513c6f1385e565ed33e802c76a37"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-direction-debug.csv",
+      "bytes": 530,
+      "sha256": "679d872e22c16d87cf46a85edbb888083cbbbc65cd3a41d47e5126051c72b328"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-errorLoc.csv",
+      "bytes": 94,
+      "sha256": "e7d7a80c90194766082c55387594f3bd1154847171496ee0b7f07ddbb8ada582"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-pinch-release-distance.csv",
+      "bytes": 375,
+      "sha256": "f73f27fe83ec30ba9760518b67915a4d257fc612afd2705e7cbc4e18835c54ad"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-session-settings.csv",
+      "bytes": 10262,
+      "sha256": "63930a63db23ce5888191a7a029d2e85e5ba55ef9c28d79a1dd141b3275c4098"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-speed-boundary-debug.csv",
+      "bytes": 2501026,
+      "sha256": "06352e8c8227f9805fb5a7ee2bbd36136afc7ced955b128c224c616759f36afa"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-speed-entry-summary.csv",
+      "bytes": 35243,
+      "sha256": "9fc83f4dd193cf51ceca79b7f15fe4197ebb5703241b78efc48407e50ed7542d"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-time.csv",
+      "bytes": 26063,
+      "sha256": "0b753d0e1f9210f6abd5425d83bf749750773c2b23a1c47c2f72069eb665e778"
+    },
+    {
+      "path": "30hz_50hz_analysis\\20261022-10-50-32\\20261022-10-50-32-trajectory.csv",
+      "bytes": 1214606,
+      "sha256": "16987bbbc358dc0c11e33add9b0d31341bf9fe86509c377207fef264276be84b"
+    }
+  ],
+  "sample_stats": [
+    {
+      "hz": 30,
+      "inside_samples": 2117,
+      "inside_speed_median_m_s": 0.07675273,
+      "inside_speed_p95_m_s": 0.6215854999999991,
+      "zero_speed_samples": 0
+    },
+    {
+      "hz": 50,
+      "inside_samples": 2717,
+      "inside_speed_median_m_s": 0.0766754746,
+      "inside_speed_p95_m_s": 0.6265790699999999,
+      "zero_speed_samples": 55
+    }
+  ],
+  "plot_font": "Microsoft YaHei"
+}
